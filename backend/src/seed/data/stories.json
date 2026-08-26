@@ -1,0 +1,173 @@
+[
+  {
+    "destinationSlug": "thailand",
+    "category": "before-you-go",
+    "title": "Getting ready for Thailand",
+    "description": "A friendly walkthrough of what to sort out before you fly — vaccines, water safety, and what to pack.",
+    "transcript": "Before you go, it's worth booking a travel health check six to eight weeks ahead. For Thailand, clinics commonly discuss hepatitis A, typhoid, and — depending on how rural your trip gets — Japanese encephalitis and rabies. None of these are unique to Thailand; they're standard considerations for Southeast Asia. Water is the other big one: stick to bottled or filtered water, and skip ice unless you know where it came from. It sounds fussy at first, but it becomes second nature within a day or two.",
+    "audio": { "url": null, "provider": "none", "mimeType": null, "durationSeconds": null, "fileSizeBytes": null },
+    "sources": [
+      { "publisher": "U.S. Centers for Disease Control and Prevention", "title": "CDC Travelers' Health — Thailand", "url": "https://wwwnc.cdc.gov/travel/destinations/traveler/none/thailand" }
+    ],
+    "status": "published",
+    "isPublished": true
+  },
+  {
+    "destinationSlug": "thailand",
+    "category": "mosquito",
+    "title": "Mosquitoes in Thailand: what actually matters",
+    "description": "Dengue is present year-round in Thailand. Here's what that means in practice, without the scare tactics.",
+    "transcript": "Thailand's malaria risk is low in most tourist areas, but dengue fever circulates year-round, carried by a different mosquito that bites during the day as well as at dusk. The practical response is the same either way: DEET or picaridin repellent, reapplied through the day, and covering up around dawn and dusk when mosquito activity peaks. There's no vaccine most travellers need for dengue specifically, so prevention really is the whole strategy here.",
+    "audio": { "url": null, "provider": "none", "mimeType": null, "durationSeconds": null, "fileSizeBytes": null },
+    "sources": [
+      { "publisher": "World Health Organization", "title": "WHO International Travel and Health", "url": "https://www.who.int/travel-advice" }
+    ],
+    "status": "published",
+    "isPublished": true
+  },
+  {
+    "destinationSlug": "thailand",
+    "category": "safety",
+    "title": "Staying safe day to day in Thailand",
+    "description": "Street dogs, street food, and the small habits that keep a trip smooth.",
+    "transcript": "Two small habits go a long way in Thailand. First, keep your distance from stray dogs and monkeys, especially in rural provinces — rabies risk is real there, and a bite or even a scratch is worth getting checked promptly rather than waiting it out. Second, street food is generally safe if it's freshly cooked and served hot in front of you; the risk goes up with anything that's been sitting out. Neither of these should stop you enjoying either — it's just about paying a bit of attention.",
+    "audio": { "url": null, "provider": "none", "mimeType": null, "durationSeconds": null, "fileSizeBytes": null },
+    "sources": [
+      { "publisher": "U.S. Centers for Disease Control and Prevention", "title": "CDC Travelers' Health — Thailand", "url": "https://wwwnc.cdc.gov/travel/destinations/traveler/none/thailand" }
+    ],
+    "status": "published",
+    "isPublished": true
+  },
+  {
+    "destinationSlug": "thailand",
+    "category": "return-home",
+    "title": "Settling back in after Thailand",
+    "description": "What's worth keeping an eye on in the weeks after you're home.",
+    "transcript": "Most people come home from Thailand and that's the end of it — no follow-up needed. The one thing worth remembering: if you develop a fever in the weeks after returning, mention your travel history to whoever you see. It helps a clinician rule things in or out quickly, rather than you having to explain it after the fact. Otherwise, welcome home.",
+    "audio": { "url": null, "provider": "none", "mimeType": null, "durationSeconds": null, "fileSizeBytes": null },
+    "sources": [
+      { "publisher": "World Health Organization", "title": "WHO International Travel and Health", "url": "https://www.who.int/travel-advice" }
+    ],
+    "status": "published",
+    "isPublished": true
+  },
+  {
+    "destinationSlug": "brazil",
+    "category": "before-you-go",
+    "title": "Getting ready for Brazil",
+    "description": "Yellow fever certification, malaria zones, and what to know before landing in Brazil.",
+    "transcript": "Brazil is one of the destinations where a yellow fever certificate genuinely matters — it's required if you're arriving from another yellow-fever country, and strongly recommended for anyone heading into the Amazon, the Pantanal, or parts of a handful of named states. It's worth checking this early, since the vaccine needs to be given at least ten days before you travel. Malaria risk in Brazil is concentrated in the Amazon basin and Pantanal specifically — most travellers sticking to Rio, São Paulo, or the classic coastal routes are in a very different risk category, but it's still worth a conversation with a travel clinic about your specific itinerary.",
+    "audio": { "url": null, "provider": "none", "mimeType": null, "durationSeconds": null, "fileSizeBytes": null },
+    "sources": [
+      { "publisher": "U.S. Centers for Disease Control and Prevention", "title": "CDC Travelers' Health — Brazil", "url": "https://wwwnc.cdc.gov/travel/destinations/traveler/none/brazil" },
+      { "publisher": "World Health Organization", "title": "WHO Global Malaria Programme", "url": "https://www.who.int/teams/global-malaria-programme" }
+    ],
+    "status": "published",
+    "isPublished": true
+  },
+  {
+    "destinationSlug": "brazil",
+    "category": "mosquito",
+    "title": "Mosquito-borne illness in Brazil, region by region",
+    "description": "Dengue, Zika and chikungunya are nationwide; malaria is regional. Here's the difference.",
+    "transcript": "Brazil has two different mosquito pictures depending on where you're going. Dengue, Zika and chikungunya circulate nationwide, especially in urban and peri-urban areas — the response is the same everywhere: DEET repellent, covering up day and night, since these mosquitoes bite at any hour. Malaria is different — it's concentrated specifically in the Amazon basin and the Pantanal, which is why antimalarials are only strongly advised for travellers actually heading into those regions. If you're pregnant and travelling somewhere with current Zika transmission, that's worth a specific conversation with a clinician before you go, not just general advice.",
+    "audio": { "url": null, "provider": "none", "mimeType": null, "durationSeconds": null, "fileSizeBytes": null },
+    "sources": [
+      { "publisher": "World Health Organization", "title": "WHO Global Malaria Programme", "url": "https://www.who.int/teams/global-malaria-programme" },
+      { "publisher": "UK National Travel Health Network and Centre", "title": "TravelHealthPro — Malaria prevention factsheet", "url": "https://travelhealthpro.org.uk/factsheet/74/malaria" }
+    ],
+    "status": "published",
+    "isPublished": true
+  },
+  {
+    "destinationSlug": "brazil",
+    "category": "arrival",
+    "title": "First things in Brazil, especially off the beaten path",
+    "description": "A quick note on registering with your embassy if you're headed somewhere remote.",
+    "transcript": "If your Brazil trip includes remote jungle, the Pantanal, or border regions, it's worth registering with your embassy once you arrive, or before you go if your embassy offers that online. It's a small step that mostly matters if something goes wrong and someone needs to reach you or account for you — most trips never need it, but it costs nothing to have it in place.",
+    "audio": { "url": null, "provider": "none", "mimeType": null, "durationSeconds": null, "fileSizeBytes": null },
+    "sources": [
+      { "publisher": "UK National Travel Health Network and Centre", "title": "TravelHealthPro (NaTHNaC) — Brazil", "url": "https://travelhealthpro.org.uk/countries?searchTerm=Brazil" }
+    ],
+    "status": "published",
+    "isPublished": true
+  },
+  {
+    "destinationSlug": "brazil",
+    "category": "return-home",
+    "title": "After Brazil: what to watch for",
+    "description": "The one thing worth remembering once you're back, especially after Amazon or Pantanal travel.",
+    "transcript": "If your trip took you into a malaria-risk area of Brazil — the Amazon basin or the Pantanal — the main thing to remember once you're home is that any fever within three months of returning needs urgent testing. It doesn't mean something's wrong; it means it's worth ruling out quickly, and mentioning your travel history makes that faster. Outside of that, there's nothing else you need to do differently once you're back.",
+    "audio": { "url": null, "provider": "none", "mimeType": null, "durationSeconds": null, "fileSizeBytes": null },
+    "sources": [
+      { "publisher": "U.S. Centers for Disease Control and Prevention", "title": "CDC Yellow Book — Malaria", "url": "https://wwwnc.cdc.gov/travel/yellowbook/2024/infections-diseases/malaria" }
+    ],
+    "status": "published",
+    "isPublished": true
+  },
+  {
+    "destinationSlug": "kenya",
+    "category": "before-you-go",
+    "title": "Getting ready for Kenya",
+    "description": "Yellow fever certification and the vaccines worth discussing before a Kenya trip.",
+    "transcript": "Kenya requires a yellow fever certificate on entry, so that's the one to sort out early — it needs to be given at least ten days before you travel. Beyond that, a travel clinic will typically talk through hepatitis A and B, typhoid, and rabies if your trip includes safari or remote travel. None of this needs to be stressful — it's a fairly standard pre-trip conversation, just worth having six to eight weeks out rather than the week before you fly.",
+    "audio": { "url": null, "provider": "none", "mimeType": null, "durationSeconds": null, "fileSizeBytes": null },
+    "sources": [
+      { "publisher": "U.S. Centers for Disease Control and Prevention", "title": "CDC Travelers' Health — Kenya", "url": "https://wwwnc.cdc.gov/travel/destinations/traveler/none/kenya" }
+    ],
+    "status": "published",
+    "isPublished": true
+  },
+  {
+    "destinationSlug": "kenya",
+    "category": "safety",
+    "title": "Malaria, freshwater, and sun — Kenya's three habits",
+    "description": "Three simple habits cover most of what matters day to day in Kenya.",
+    "transcript": "Kenya has three habits worth building in early. Malaria is widespread below 2,500 metres, so antimalarials are strongly advised for most itineraries — your clinician can help pick the right one for your trip. Freshwater lakes carry a bilharzia risk, so it's best to avoid swimming in them, even when they look inviting. And sun protection matters more than people expect near the equator — it's easy to underestimate on a cloudy or overcast day, so it's worth applying regardless of what the sky looks like.",
+    "audio": { "url": null, "provider": "none", "mimeType": null, "durationSeconds": null, "fileSizeBytes": null },
+    "sources": [
+      { "publisher": "World Health Organization", "title": "WHO Global Malaria Programme", "url": "https://www.who.int/teams/global-malaria-programme" }
+    ],
+    "status": "published",
+    "isPublished": true
+  },
+  {
+    "destinationSlug": "kenya",
+    "category": "emergency",
+    "title": "If something goes wrong in Kenya",
+    "description": "Who to call, and a useful option for remote safari areas.",
+    "transcript": "For general emergencies in Kenya, the police line is 999 and St John Ambulance can be reached directly. If your trip includes a safari in a remote area, it's worth knowing that AMREF Flying Doctors provides an emergency evacuation service — many travel insurance policies already cover this, so it's worth checking your policy before you go rather than during an emergency. Save these numbers somewhere you can find them offline.",
+    "audio": { "url": null, "provider": "none", "mimeType": null, "durationSeconds": null, "fileSizeBytes": null },
+    "sources": [
+      { "publisher": "UK National Travel Health Network and Centre", "title": "TravelHealthPro (NaTHNaC) — Kenya", "url": "https://travelhealthpro.org.uk/countries?searchTerm=Kenya" }
+    ],
+    "status": "published",
+    "isPublished": true
+  },
+  {
+    "destinationSlug": "india",
+    "category": "before-you-go",
+    "title": "Getting ready for India",
+    "description": "What clinics usually cover before an India trip, and why food and water get so much attention.",
+    "transcript": "A pre-trip check for India usually covers hepatitis A and B, typhoid, and — depending on timing and region — Japanese encephalitis or rabies. Food and water come up a lot in India specifically, because traveller's diarrhoea is genuinely common; it's not a sign you're doing something wrong, it's just worth packing oral rehydration salts and a plan for it rather than being caught out. If northern cities and pollution are part of your route, an N95 mask is worth having for anyone with asthma or sensitive lungs.",
+    "audio": { "url": null, "provider": "none", "mimeType": null, "durationSeconds": null, "fileSizeBytes": null },
+    "sources": [
+      { "publisher": "U.S. Centers for Disease Control and Prevention", "title": "CDC Travelers' Health — India", "url": "https://wwwnc.cdc.gov/travel/destinations/traveler/none/india" }
+    ],
+    "status": "published",
+    "isPublished": true
+  },
+  {
+    "destinationSlug": "india",
+    "category": "food-water",
+    "title": "Eating well in India without the guesswork",
+    "description": "The practical version of 'boil it, cook it, peel it, or forget it.'",
+    "transcript": "The simplest rule for India is: piping hot and freshly cooked beats anything that's been sitting out, and that's true whether it's from a five-star hotel or a street stall — heat is what matters, not the setting. Dengue also peaks after the monsoon, roughly September to November, so repellent habits are worth tightening up specifically in that window. If you do get an upset stomach despite all that, oral rehydration salts and a course of azithromycin — packed in advance, on a clinician's advice — cover most cases without needing to find a pharmacy mid-trip.",
+    "audio": { "url": null, "provider": "none", "mimeType": null, "durationSeconds": null, "fileSizeBytes": null },
+    "sources": [
+      { "publisher": "UK National Travel Health Network and Centre", "title": "TravelHealthPro (NaTHNaC) — India", "url": "https://travelhealthpro.org.uk/countries?searchTerm=India" }
+    ],
+    "status": "published",
+    "isPublished": true
+  }
+]

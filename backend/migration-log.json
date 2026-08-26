@@ -1,0 +1,2890 @@
+[
+  {
+    "destination": "Thailand",
+    "slug": "thailand",
+    "vaccines": [
+      {
+        "name": "Hepatitis A",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Japanese Encephalitis",
+        "status": "conditional",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus / Diphtheria",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "low",
+      "hasSubnationalVariation": null,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Kenya",
+    "slug": "kenya",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Cholera",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Meningitis (ACWY)",
+        "status": "not-classified",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "high",
+      "hasSubnationalVariation": true,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Brazil",
+    "slug": "brazil",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "conditional",
+        "regionSpecific": true
+      },
+      {
+        "name": "Hepatitis A",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "MMR",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus / Diphtheria",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis B",
+        "status": "consider",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "high",
+      "hasSubnationalVariation": true,
+      "namedRegions": [
+        "Amazon",
+        "Amazonas",
+        "Pantanal"
+      ]
+    }
+  },
+  {
+    "destination": "India",
+    "slug": "india",
+    "vaccines": [
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Japanese Encephalitis",
+        "status": "conditional",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Cholera",
+        "status": "conditional",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "moderate",
+      "hasSubnationalVariation": null,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Indonesia (Bali & beyond)",
+    "slug": "indonesia",
+    "vaccines": [
+      {
+        "name": "Hepatitis A",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "not-classified",
+        "regionSpecific": true
+      },
+      {
+        "name": "Japanese Encephalitis",
+        "status": "conditional",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "conditional",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "moderate",
+      "hasSubnationalVariation": true,
+      "namedRegions": [
+        "Papua",
+        "Lombok",
+        "Bali"
+      ]
+    }
+  },
+  {
+    "destination": "Tanzania & Zanzibar",
+    "slug": "tanzania-and-zanzibar",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "conditional",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "conditional",
+        "regionSpecific": false
+      },
+      {
+        "name": "Cholera",
+        "status": "consider",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "high",
+      "hasSubnationalVariation": false,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Vietnam",
+    "slug": "vietnam",
+    "vaccines": [
+      {
+        "name": "Hepatitis A",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Japanese Encephalitis",
+        "status": "conditional",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "moderate",
+      "hasSubnationalVariation": true,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Cambodia",
+    "slug": "cambodia",
+    "vaccines": [
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Japanese Encephalitis",
+        "status": "conditional",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "high",
+      "hasSubnationalVariation": false,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Philippines",
+    "slug": "philippines",
+    "vaccines": [
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Japanese Encephalitis",
+        "status": "conditional",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "moderate",
+      "hasSubnationalVariation": true,
+      "namedRegions": [
+        "Palawan",
+        "Mindanao"
+      ]
+    }
+  },
+  {
+    "destination": "Malaysia",
+    "slug": "malaysia",
+    "vaccines": [
+      {
+        "name": "Hepatitis A",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Japanese Encephalitis",
+        "status": "conditional",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "low",
+      "hasSubnationalVariation": true,
+      "namedRegions": [
+        "Borneo"
+      ]
+    }
+  },
+  {
+    "destination": "Costa Rica",
+    "slug": "costa-rica",
+    "vaccines": [
+      {
+        "name": "Hepatitis A",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "conditional",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "low",
+      "hasSubnationalVariation": true,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Peru",
+    "slug": "peru",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": true
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "conditional",
+        "regionSpecific": true
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "moderate",
+      "hasSubnationalVariation": true,
+      "namedRegions": [
+        "Amazon"
+      ]
+    }
+  },
+  {
+    "destination": "Colombia",
+    "slug": "colombia",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": true
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "moderate",
+      "hasSubnationalVariation": true,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Ghana",
+    "slug": "ghana",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Meningitis (ACWY)",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "high",
+      "hasSubnationalVariation": false,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Uganda",
+    "slug": "uganda",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Meningitis (ACWY)",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "conditional",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "high",
+      "hasSubnationalVariation": false,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Madagascar",
+    "slug": "madagascar",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "conditional",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "high",
+      "hasSubnationalVariation": false,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Sri Lanka",
+    "slug": "sri-lanka",
+    "vaccines": [
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Japanese Encephalitis",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "low",
+      "hasSubnationalVariation": false,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Nepal",
+    "slug": "nepal",
+    "vaccines": [
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Japanese Encephalitis",
+        "status": "consider",
+        "regionSpecific": true
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "low",
+      "hasSubnationalVariation": true,
+      "namedRegions": [
+        "Terai"
+      ]
+    }
+  },
+  {
+    "destination": "Mexico (Yucatán & Chiapas)",
+    "slug": "mexico",
+    "vaccines": [
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "low",
+      "hasSubnationalVariation": true,
+      "namedRegions": [
+        "Chiapas",
+        "Oaxaca"
+      ]
+    }
+  },
+  {
+    "destination": "Panama",
+    "slug": "panama",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "conditional",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "moderate",
+      "hasSubnationalVariation": true,
+      "namedRegions": [
+        "Darién"
+      ]
+    }
+  },
+  {
+    "destination": "Guatemala",
+    "slug": "guatemala",
+    "vaccines": [
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "moderate",
+      "hasSubnationalVariation": true,
+      "namedRegions": [
+        "Petén",
+        "Alta Verapaz"
+      ]
+    }
+  },
+  {
+    "destination": "Ecuador (Amazon & Galápagos)",
+    "slug": "ecuador",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": true
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "conditional",
+        "regionSpecific": true
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "moderate",
+      "hasSubnationalVariation": true,
+      "namedRegions": [
+        "Amazon"
+      ]
+    }
+  },
+  {
+    "destination": "Bolivia",
+    "slug": "bolivia",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "moderate",
+      "hasSubnationalVariation": true,
+      "namedRegions": [
+        "Amazon",
+        "Beni",
+        "Pando"
+      ]
+    }
+  },
+  {
+    "destination": "Myanmar",
+    "slug": "myanmar",
+    "vaccines": [
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Japanese Encephalitis",
+        "status": "conditional",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "moderate",
+      "hasSubnationalVariation": true,
+      "namedRegions": [
+        "Karen",
+        "Shan"
+      ]
+    }
+  },
+  {
+    "destination": "Laos",
+    "slug": "laos",
+    "vaccines": [
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Japanese Encephalitis",
+        "status": "conditional",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "moderate",
+      "hasSubnationalVariation": false,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Papua New Guinea",
+    "slug": "papua-new-guinea",
+    "vaccines": [
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Japanese Encephalitis",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "high",
+      "hasSubnationalVariation": true,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Fiji",
+    "slug": "fiji",
+    "vaccines": [
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "none",
+      "hasSubnationalVariation": false,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Solomon Islands",
+    "slug": "solomon-islands",
+    "vaccines": [
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Japanese Encephalitis",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "high",
+      "hasSubnationalVariation": false,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Vanuatu",
+    "slug": "vanuatu",
+    "vaccines": [
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "low",
+      "hasSubnationalVariation": false,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Dominican Republic",
+    "slug": "dominican-republic",
+    "vaccines": [
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "low",
+      "hasSubnationalVariation": true,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Jamaica",
+    "slug": "jamaica",
+    "vaccines": [
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "none",
+      "hasSubnationalVariation": false,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Senegal",
+    "slug": "senegal",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Meningitis (ACWY)",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "high",
+      "hasSubnationalVariation": false,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Ethiopia",
+    "slug": "ethiopia",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Meningitis (ACWY)",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "moderate",
+      "hasSubnationalVariation": true,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Rwanda",
+    "slug": "rwanda",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Meningitis (ACWY)",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "high",
+      "hasSubnationalVariation": false,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Nigeria",
+    "slug": "nigeria",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Meningitis (ACWY)",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "high",
+      "hasSubnationalVariation": false,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Benin",
+    "slug": "benin",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Meningitis (ACWY)",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "high",
+      "hasSubnationalVariation": true,
+      "namedRegions": [
+        "Beni"
+      ]
+    }
+  },
+  {
+    "destination": "Burkina Faso",
+    "slug": "burkina-faso",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Meningitis (ACWY)",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "high",
+      "hasSubnationalVariation": false,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Côte d'Ivoire",
+    "slug": "c-te-d-ivoire",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Meningitis (ACWY)",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "high",
+      "hasSubnationalVariation": false,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "The Gambia",
+    "slug": "the-gambia",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Meningitis (ACWY)",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "high",
+      "hasSubnationalVariation": false,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Guinea",
+    "slug": "guinea",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Cholera",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Meningitis (ACWY)",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "high",
+      "hasSubnationalVariation": false,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Guinea-Bissau",
+    "slug": "guinea-bissau",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Cholera",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Meningitis (ACWY)",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "high",
+      "hasSubnationalVariation": false,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Liberia",
+    "slug": "liberia",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Meningitis (ACWY)",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "high",
+      "hasSubnationalVariation": false,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Mali",
+    "slug": "mali",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Meningitis (ACWY)",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "high",
+      "hasSubnationalVariation": false,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Mauritania",
+    "slug": "mauritania",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Meningitis (ACWY)",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "low",
+      "hasSubnationalVariation": true,
+      "namedRegions": [
+        "Senegal River"
+      ]
+    }
+  },
+  {
+    "destination": "Niger",
+    "slug": "niger",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Meningitis (ACWY)",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "high",
+      "hasSubnationalVariation": false,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Sierra Leone",
+    "slug": "sierra-leone",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Cholera",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Meningitis (ACWY)",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "high",
+      "hasSubnationalVariation": false,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Togo",
+    "slug": "togo",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Meningitis (ACWY)",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "high",
+      "hasSubnationalVariation": false,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Cameroon",
+    "slug": "cameroon",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Meningitis (ACWY)",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "high",
+      "hasSubnationalVariation": false,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Burundi",
+    "slug": "burundi",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Meningitis (ACWY)",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "high",
+      "hasSubnationalVariation": false,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Djibouti",
+    "slug": "djibouti",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Meningitis (ACWY)",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "low",
+      "hasSubnationalVariation": true,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Eritrea",
+    "slug": "eritrea",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Meningitis (ACWY)",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "moderate",
+      "hasSubnationalVariation": true,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Somalia",
+    "slug": "somalia",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Meningitis (ACWY)",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "high",
+      "hasSubnationalVariation": false,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "South Sudan",
+    "slug": "south-sudan",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Meningitis (ACWY)",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "high",
+      "hasSubnationalVariation": false,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Sudan",
+    "slug": "sudan",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Meningitis (ACWY)",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "high",
+      "hasSubnationalVariation": false,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Comoros",
+    "slug": "comoros",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "high",
+      "hasSubnationalVariation": false,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Seychelles",
+    "slug": "seychelles",
+    "vaccines": [
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "none",
+      "hasSubnationalVariation": false,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Mauritius",
+    "slug": "mauritius",
+    "vaccines": [
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "none",
+      "hasSubnationalVariation": false,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Malawi",
+    "slug": "malawi",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "high",
+      "hasSubnationalVariation": false,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Mozambique",
+    "slug": "mozambique",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "high",
+      "hasSubnationalVariation": false,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Central African Republic",
+    "slug": "central-african-republic",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Meningitis (ACWY)",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "high",
+      "hasSubnationalVariation": false,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Chad",
+    "slug": "chad",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Meningitis (ACWY)",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "high",
+      "hasSubnationalVariation": true,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Congo (Republic of the Congo)",
+    "slug": "congo",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "high",
+      "hasSubnationalVariation": false,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Democratic Republic of the Congo",
+    "slug": "democratic-republic-of-the-congo",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Cholera",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Meningitis (ACWY)",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "high",
+      "hasSubnationalVariation": true,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Equatorial Guinea",
+    "slug": "equatorial-guinea",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "high",
+      "hasSubnationalVariation": false,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Gabon",
+    "slug": "gabon",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "high",
+      "hasSubnationalVariation": false,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "São Tomé and Príncipe",
+    "slug": "s-o-tom-and-pr-ncipe",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "conditional",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "moderate",
+      "hasSubnationalVariation": false,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Angola",
+    "slug": "angola",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Meningitis (ACWY)",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "high",
+      "hasSubnationalVariation": true,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Belize",
+    "slug": "belize",
+    "vaccines": [
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Yellow Fever",
+        "status": "conditional",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus / Diphtheria",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "low",
+      "hasSubnationalVariation": true,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Honduras",
+    "slug": "honduras",
+    "vaccines": [
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Yellow Fever",
+        "status": "conditional",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus / Diphtheria",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "moderate",
+      "hasSubnationalVariation": true,
+      "namedRegions": [
+        "Gracias a Dios",
+        "Islas de la Bahía"
+      ]
+    }
+  },
+  {
+    "destination": "El Salvador",
+    "slug": "el-salvador",
+    "vaccines": [
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Yellow Fever",
+        "status": "conditional",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus / Diphtheria",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "low",
+      "hasSubnationalVariation": false,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Nicaragua",
+    "slug": "nicaragua",
+    "vaccines": [
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Yellow Fever",
+        "status": "conditional",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus / Diphtheria",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "moderate",
+      "hasSubnationalVariation": true,
+      "namedRegions": [
+        "RAAN",
+        "RAAS"
+      ]
+    }
+  },
+  {
+    "destination": "Venezuela",
+    "slug": "venezuela",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Measles (MMR)",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Diphtheria / Tetanus",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "high",
+      "hasSubnationalVariation": true,
+      "namedRegions": [
+        "Amazon",
+        "Amazonas",
+        "Bolívar",
+        "Sucre"
+      ]
+    }
+  },
+  {
+    "destination": "Guyana",
+    "slug": "guyana",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus / Diphtheria",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "high",
+      "hasSubnationalVariation": true,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "Suriname",
+    "slug": "suriname",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus / Diphtheria",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "moderate",
+      "hasSubnationalVariation": true,
+      "namedRegions": []
+    }
+  },
+  {
+    "destination": "French Guiana",
+    "slug": "french-guiana",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "required",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus / Diphtheria",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "moderate",
+      "hasSubnationalVariation": true,
+      "namedRegions": [
+        "Maroni",
+        "Oyapock"
+      ]
+    }
+  },
+  {
+    "destination": "Paraguay",
+    "slug": "paraguay",
+    "vaccines": [
+      {
+        "name": "Yellow Fever",
+        "status": "conditional",
+        "regionSpecific": false
+      },
+      {
+        "name": "Hepatitis A & B",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Typhoid",
+        "status": "recommended",
+        "regionSpecific": false
+      },
+      {
+        "name": "Rabies",
+        "status": "consider",
+        "regionSpecific": false
+      },
+      {
+        "name": "Tetanus / Diphtheria",
+        "status": "recommended",
+        "regionSpecific": false
+      }
+    ],
+    "malaria": {
+      "level": "low",
+      "hasSubnationalVariation": null,
+      "namedRegions": []
+    }
+  }
+]

@@ -1,0 +1,40 @@
+[
+  {
+    "id": "safari",
+    "category": "Safari preparation",
+    "triggers": {
+      "tripTypes": ["Safari"],
+      "activities": ["Safari"]
+    },
+    "items": [
+      "Animal exposure precautions (keep distance, no feeding wildlife, follow guide instructions)",
+      "Remote medical preparation (know evacuation plan, carry extra first-aid supplies)"
+    ]
+  },
+  {
+    "id": "jungle",
+    "category": "Jungle travel preparation",
+    "triggers": {
+      "tripTypes": [],
+      "activities": ["Jungle travel"]
+    },
+    "items": [
+      "Insect protection suited to dense-forest exposure",
+      "Mosquito net for accommodation without screened windows",
+      "Remote-care planning (nearest clinic, evacuation contact, satellite communication if applicable)"
+    ]
+  },
+  {
+    "id": "beach",
+    "category": "Beach preparation",
+    "triggers": {
+      "tripTypes": ["Beach"],
+      "activities": ["Swimming"]
+    },
+    "items": [
+      "Sun protection (reef-safe sunscreen, rash guard, shade)",
+      "Hydration plan for heat exposure",
+      "Water safety awareness (currents, local warning flags, swimming conditions)"
+    ]
+  }
+]

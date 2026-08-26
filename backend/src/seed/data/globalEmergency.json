@@ -1,0 +1,42 @@
+[
+  {
+    "label": "International SOS",
+    "number": "+44 20 8762 8008",
+    "note": "24/7 assistance line",
+    "category": "assistance-provider",
+    "source": null,
+    "lastVerifiedAt": null
+  },
+  {
+    "label": "Your travel insurer",
+    "number": "See policy card",
+    "note": "Call before major treatment",
+    "category": "insurance",
+    "source": null,
+    "lastVerifiedAt": null
+  },
+  {
+    "label": "Nearest embassy / consulate",
+    "number": "Register on arrival",
+    "note": "STEP / FCDO / equivalent",
+    "category": "embassy",
+    "source": null,
+    "lastVerifiedAt": null
+  },
+  {
+    "label": "WHO Global Outbreak",
+    "number": "who.int/emergencies",
+    "note": "Live disease alerts",
+    "category": "health-authority",
+    "source": "https://www.who.int/emergencies",
+    "lastVerifiedAt": null
+  },
+  {
+    "label": "WHO International Travel and Health",
+    "number": "who.int/travel-advice",
+    "note": "General travel-health guidance and country-specific advisories",
+    "category": "travel-health-source",
+    "source": "https://www.who.int/travel-advice",
+    "lastVerifiedAt": null
+  }
+]
