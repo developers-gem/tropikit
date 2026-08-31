@@ -106,3 +106,6 @@ npm run dev                 # http://localhost:5173
 | 13. Responsive/accessibility | Base Tailwind responsive classes throughout; no dedicated a11y audit pass was run |
 | 14. Security | JWT, bcrypt, Zod validation, ownership checks, Helmet, CORS, rate limiting all in place; no external security audit |
 | 15. Final QA | Partial — see "Status" section above for exactly what was and wasn't verified |
+
+
+| 16 
