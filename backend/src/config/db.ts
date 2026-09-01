@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 import { env } from "./env";
 import { logger } from "../utils/logger";
-
+import  dns from "dns";
+dns.setServers(["1.1.1.1","8.8.8.8"]);
 export async function connectDatabase(): Promise<void> {
   mongoose.set("strictQuery", true);
 
