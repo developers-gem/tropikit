@@ -1,4 +1,4 @@
-import { Calendar, MapPin, Trash2 } from "lucide-react";
+import { Calendar, MapPin, Trash2, Download } from "lucide-react";
 
 function fmtDate(iso: string) {
   return new Date(iso).toLocaleDateString(undefined, {
@@ -16,8 +16,13 @@ export function TripHeader({
   returnDate,
   daysUntilDeparture,
   durationDays,
+  tripType,
+  accommodationType,
+  activities,
   onDelete,
   onOpenPlanner,
+  onDownloadCalendar,
+  isDownloadingCalendar,
 }: {
   destinationName: string;
   region: string;
@@ -25,8 +30,13 @@ export function TripHeader({
   returnDate: string;
   daysUntilDeparture: number;
   durationDays: number;
+  tripType?: string;
+  accommodationType?: string;
+  activities?: string[];
   onDelete: () => void;
   onOpenPlanner?: () => void;
+  onDownloadCalendar?: () => void;
+  isDownloadingCalendar?: boolean;
 }) {
   return (
     <div className="rounded-xl border border-border overflow-hidden shadow-soft mb-6">
@@ -38,20 +48,56 @@ export function TripHeader({
               {region}
             </div>
             <h1 className="text-3xl font-semibold mt-1">{destinationName}</h1>
+
+            {/* Trip Personalization Badges */}
+            {(tripType || accommodationType || (activities && activities.length > 0)) && (
+              <div className="flex flex-wrap items-center gap-2 mt-3">
+                {tripType && (
+                  <span className="text-xs bg-white/20 px-2.5 py-0.5 rounded-full backdrop-blur-sm">
+                    {tripType}
+                  </span>
+                )}
+                {accommodationType && (
+                  <span className="text-xs bg-white/20 px-2.5 py-0.5 rounded-full backdrop-blur-sm">
+                    {accommodationType}
+                  </span>
+                )}
+                {activities?.map((act) => (
+                  <span
+                    key={act}
+                    className="text-xs bg-white/15 px-2.5 py-0.5 rounded-full backdrop-blur-sm text-white/90"
+                  >
+                    {act}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
-          <div className="flex gap-2">
+
+          <div className="flex flex-wrap gap-2">
+            {onDownloadCalendar && (
+              <button
+                onClick={onDownloadCalendar}
+                disabled={isDownloadingCalendar}
+                aria-label="Export trip calendar"
+                className="text-xs font-medium bg-white/15 hover:bg-white/25 rounded-md px-3 py-2 flex items-center gap-1.5 transition-colors disabled:opacity-60"
+              >
+                <Download className="h-3.5 w-3.5" />
+                {isDownloadingCalendar ? "Exporting..." : "Export .ics"}
+              </button>
+            )}
             {onOpenPlanner && (
               <button
                 onClick={onOpenPlanner}
-                className="text-xs font-medium bg-white/15 hover:bg-white/25 rounded-md px-3 py-2"
+                className="text-xs font-medium bg-white/15 hover:bg-white/25 rounded-md px-3 py-2 transition-colors"
               >
-                Open destination page
+                Destination guide
               </button>
             )}
             <button
               onClick={onDelete}
               aria-label="Delete trip"
-              className="text-xs font-medium bg-white/15 hover:bg-white/25 rounded-md px-3 py-2 flex items-center gap-1.5"
+              className="text-xs font-medium bg-white/15 hover:bg-white/25 rounded-md px-3 py-2 flex items-center gap-1.5 transition-colors"
             >
               <Trash2 className="h-3.5 w-3.5" /> Delete
             </button>
@@ -78,8 +124,8 @@ export function TripHeader({
             {daysUntilDeparture > 0
               ? `${daysUntilDeparture} day${daysUntilDeparture === 1 ? "" : "s"}`
               : daysUntilDeparture === 0
-                ? "Today"
-                : "Departed"}
+              ? "Today"
+              : "Departed"}
           </div>
         </div>
         <div className="p-4">

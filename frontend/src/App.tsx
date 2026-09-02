@@ -1,5 +1,7 @@
-import { Routes, Route } from "react-router-dom";
+// frontend/src/App.tsx
+import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 import { SiteLayout } from "@/layouts/SiteLayout";
+import { UserDashboardLayout } from "@/layouts/UserDashboardLayout";
 import HomePage from "@/pages/HomePage";
 import DestinationsPage from "@/pages/DestinationsPage";
 import DestinationDetailPage from "@/pages/DestinationDetailPage";
@@ -15,6 +17,7 @@ import AccountPage from "@/pages/AccountPage";
 import TripsPage from "@/pages/TripsPage";
 import TripCreatePage from "@/pages/TripCreatePage";
 import TripDetailPage from "@/pages/TripDetailPage";
+import DashboardPage from "@/pages/DashboardPage";
 import NotFoundPage from "@/pages/NotFoundPage";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { AdminRoute } from "@/components/AdminRoute";
@@ -26,10 +29,20 @@ import {
   AdminSourcesPlaceholder,
 } from "@/pages/admin/AdminPlaceholderPages";
 
+// Route wrapper providing the left sidebar for user dashboard views
+function DashboardLayoutWrapper() {
+  return (
+    <UserDashboardLayout>
+      <Outlet />
+    </UserDashboardLayout>
+  );
+}
+
 export default function App() {
   return (
     <Routes>
       <Route element={<SiteLayout />}>
+        {/* Public Routes */}
         <Route path="/" element={<HomePage />} />
         <Route path="/destinations" element={<DestinationsPage />} />
         <Route path="/destinations/:slug" element={<DestinationDetailPage />} />
@@ -41,38 +54,25 @@ export default function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
+
+        {/* User Dashboard Hub & Trip Management (All share the Left Sidebar) */}
         <Route
-          path="/account"
           element={
             <ProtectedRoute>
-              <AccountPage />
+              <DashboardLayoutWrapper />
             </ProtectedRoute>
           }
-        />
-        <Route
-          path="/account/trips"
-          element={
-            <ProtectedRoute>
-              <TripsPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/trip/create"
-          element={
-            <ProtectedRoute>
-              <TripCreatePage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/trip/:id"
-          element={
-            <ProtectedRoute>
-              <TripDetailPage />
-            </ProtectedRoute>
-          }
-        />
+        >
+          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/userdashboard" element={<Navigate to="/dashboard" replace />} />
+          <Route path="/account/trips" element={<TripsPage />} />
+          <Route path="/account" element={<AccountPage />} />
+          <Route path="/trip/create" element={<TripCreatePage />} />
+          <Route path="/trip/:id" element={<TripDetailPage />} />
+          <Route path="/trips/:id" element={<Navigate to="/trip/:id" replace />} />
+        </Route>
+
+        {/* 404 Catch-All */}
         <Route path="*" element={<NotFoundPage />} />
       </Route>
 
