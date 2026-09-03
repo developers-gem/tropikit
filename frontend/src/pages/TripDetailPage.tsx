@@ -1,6 +1,6 @@
 // frontend/src/pages/TripDetailPage.tsx
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, Navigate } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   Calendar,
@@ -116,6 +116,8 @@ export default function TripDetailPage() {
 
   const [checkedKeys, setCheckedKeys] = useState<string[]>([]);
 
+  const isValidTripId = Boolean(id && id !== "undefined" && id !== "create");
+
   const {
     data: dashboard,
     isLoading,
@@ -124,14 +126,16 @@ export default function TripDetailPage() {
   } = useQuery({
     queryKey: ["trip-dashboard", id],
     queryFn: () => fetchTripDashboard(id!),
-    enabled: Boolean(id && id !== "undefined"),
+    enabled: isValidTripId,
   });
 
+  // Fixed: Directly access checklist.checkedItemKeys (no .progress)
   useEffect(() => {
-    if (dashboard?.checklist?.progress?.checkedItemKeys) {
-      setCheckedKeys(dashboard.checklist.progress.checkedItemKeys);
+    const rawKeys = dashboard?.checklist?.checkedItemKeys;
+    if (Array.isArray(rawKeys)) {
+      setCheckedKeys(rawKeys);
     }
-  }, [dashboard?.checklist?.progress?.checkedItemKeys]);
+  }, [dashboard?.checklist?.checkedItemKeys]);
 
   const saveMutation = useMutation({
     mutationFn: (keys: string[]) => saveTripChecklist(id!, keys),
@@ -144,24 +148,22 @@ export default function TripDetailPage() {
 
       setCheckedKeys(incomingKeys);
 
+      // Fixed: Directly update checklist without nesting into .progress
       queryClient.setQueryData(["trip-dashboard", id], (old: any) => {
         if (!old) return old;
         return {
           ...old,
           checklist: {
             ...old.checklist,
-            progress: {
-              ...old.checklist?.progress,
-              checkedItemKeys: incomingKeys,
-              completed: incomingKeys.length,
-            },
+            checkedItemKeys: incomingKeys,
+            completed: incomingKeys.length,
           },
         };
       });
     },
     onError: () => {
-      if (dashboard?.checklist?.progress?.checkedItemKeys) {
-        setCheckedKeys(dashboard.checklist.progress.checkedItemKeys);
+      if (dashboard?.checklist?.checkedItemKeys) {
+        setCheckedKeys(dashboard.checklist.checkedItemKeys);
       }
     },
   });
@@ -189,8 +191,8 @@ export default function TripDetailPage() {
     },
   });
 
-  if (!id || id === "undefined") {
-    return <ErrorState message="Invalid Trip ID specified. Please return to your trips." />;
+  if (!isValidTripId) {
+    return <Navigate to="/trip/create" replace />;
   }
 
   if (isLoading) {
@@ -220,7 +222,7 @@ export default function TripDetailPage() {
   const checkedSet = new Set(checkedKeys);
 
   const allFlattened = flattenChecklist(template);
-  const total = allFlattened.length || 1;
+  const total = allFlattened.length || checklist?.total || 1;
   const completed = checkedKeys.length;
   const percentage = Math.min(100, Math.round((completed / total) * 100));
   const daysUntil = getDaysUntil(trip.departureDate);
@@ -419,7 +421,7 @@ export default function TripDetailPage() {
             </p>
             <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
               {vaccineList.length > 0
-                ? `${vaccineList.length} recommended immunization(s) for${destination?.name || "destination"}.`
+                ? `${vaccineList.length} recommended immunization(s) for ${destination?.name || "destination"}.`
                 : "No high-risk endemic vaccines flagged."}
             </p>
           </div>
@@ -956,7 +958,7 @@ export default function TripDetailPage() {
                   <select
                     value={reminderType}
                     onChange={(e) => setReminderType(e.target.value)}
-                    className="w-full rounded-lg border border-border bg-background px-3 py-1.5 text-xs text-foreground focus:border-primary focus:outline-hidden shadow-xs cursor-pointer"
+                    className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs text-foreground focus:border-primary focus:outline-hidden shadow-xs cursor-pointer"
                   >
                     <option value="travel-preparation">Preparation</option>
                     <option value="vaccine">Vaccine Clinic</option>

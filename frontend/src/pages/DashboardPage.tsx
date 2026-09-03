@@ -48,12 +48,13 @@ export default function DashboardPage() {
     queryFn: fetchTrips,
   });
 
+  // Wrapped in arrow function to avoid TanStack Query passing context into DestinationFilters
   const {
     data: destinations = [],
     isLoading: destsLoading,
-  } = useQuery({
+  } = useQuery<Destination[]>({
     queryKey: ["destinations"],
-    queryFn: fetchDestinations,
+    queryFn: () => fetchDestinations(),
   });
 
   // Map destinations by ID/slug for instant lookup
@@ -63,7 +64,7 @@ export default function DashboardPage() {
       if (d._id) map.set(String(d._id), d);
       if ((d as any).id) map.set(String((d as any).id), d);
       if (d.slug) map.set(d.slug, d);
-      if (d.code) map.set(d.code, d);
+      if ((d as any).code) map.set((d as any).code, d);
     }
     return map;
   }, [destinations]);
