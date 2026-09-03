@@ -8,7 +8,6 @@ import {
   Plus,
   ArrowRight,
   ShieldCheck,
-  AlertCircle,
   Clock,
   Trash2,
   CalendarDays,
@@ -59,7 +58,7 @@ export default function TripsPage() {
     queryFn: () => fetchDestinations(),
   });
 
-  // Map destinations by _id, id, and slug for instant lookup if destinationId is unpopulated
+  // Map destinations by _id, id, and slug safely without using `code`
   const destinationMap = useMemo(() => {
     const map = new Map<string, Destination>();
     destinations.forEach((d) => {
@@ -67,18 +66,16 @@ export default function TripsPage() {
       if (item._id && typeof item._id === "string") map.set(item._id, d);
       if (item.id && typeof item.id === "string") map.set(item.id, d);
       if (d.slug) map.set(d.slug, d);
-      if (d.code) map.set(d.code, d);
     });
     return map;
   }, [destinations]);
 
-  const resolveDestination = (trip: Trip): { name: string; region: string; code?: string } => {
+  const resolveDestination = (trip: Trip): { name: string; region: string } => {
     if (trip.destinationId && typeof trip.destinationId === "object") {
       const dest = trip.destinationId as unknown as Destination;
       return {
         name: dest.name || (dest as any).country || "Destination",
         region: dest.region || "Global Travel",
-        code: dest.code || (dest as any).countryCode,
       };
     }
 
@@ -88,7 +85,6 @@ export default function TripsPage() {
       return {
         name: dest.name || (dest as any).country || "Destination",
         region: dest.region || "Global Travel",
-        code: dest.code || (dest as any).countryCode,
       };
     }
 
@@ -102,7 +98,6 @@ export default function TripsPage() {
       return {
         name: dest.name || (dest as any).country || "Destination",
         region: dest.region || "Global Travel",
-        code: dest.code || (dest as any).countryCode,
       };
     }
 
@@ -110,11 +105,10 @@ export default function TripsPage() {
       return {
         name: tripRecord.destinationName,
         region: (tripRecord.destinationRegion || tripRecord.region || "Global Travel") as string,
-        code: (tripRecord.destinationCode || tripRecord.countryCode) as string | undefined,
       };
     }
 
-    return { name: "Destination", region: "Global Travel", code: undefined };
+    return { name: "Destination", region: "Global Travel" };
   };
 
   const getTripId = (trip: Trip): string => {
@@ -267,10 +261,9 @@ export default function TripsPage() {
                 className="group relative rounded-xl border border-border bg-card p-4 shadow-xs hover:border-primary/40 hover:shadow-sm transition-all flex flex-col justify-between"
               >
                 <div className="space-y-3">
-                  {/* Top Header: Styled Travel Badge, Destination & Delete */}
+                  {/* Top Header: Destination and Delete */}
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex items-center gap-2.5">
-                      {/* Replaced Earth emoji with clean Compass icon badge */}
                       <div className="h-9 w-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center border border-primary/20 shrink-0">
                         <Compass className="h-4.5 w-4.5" />
                       </div>

@@ -4,7 +4,6 @@ import { useParams, Link } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   Calendar,
-  MapPin,
   ArrowLeft,
   ShieldCheck,
   Clock,
@@ -24,7 +23,7 @@ import {
   Plus,
   X,
   CalendarDays,
-  Plane,
+  MapPin,
 } from "lucide-react";
 import {
   fetchTripDashboard,
@@ -226,13 +225,28 @@ export default function TripDetailPage() {
   const percentage = Math.min(100, Math.round((completed / total) * 100));
   const daysUntil = getDaysUntil(trip.departureDate);
 
+  // Safe accessor for malaria plan drug / medication key
+  const activeMedication = (malariaPlan as any)?.drugKey || (malariaPlan as any)?.medication || "";
+
   const malariaTimeline = malariaPlan
     ? getRegimenTimeline(
-        malariaPlan.medication,
+        activeMedication,
         trip.departureDate,
         trip.returnDate
       )
     : null;
+
+  // Safe accessor for destination vaccines
+  const vaccineList = destination?.vaccines || (destination as any)?.vaccineRequirements || [];
+
+  // Safe accessor for destination emergency numbers
+  const policeContact = destination?.emergencyContacts?.find(
+    (c) => c.category?.toLowerCase() === "police"
+  )?.number || (destination as any)?.emergencyNumbers?.police || "112 / 911";
+
+  const ambulanceContact = destination?.emergencyContacts?.find(
+    (c) => c.category?.toLowerCase() === "ambulance"
+  )?.number || (destination as any)?.emergencyNumbers?.ambulance || "112 / 911";
 
   const resolveItemKey = (groupCategory: string, item: any): string => {
     if (typeof item === "string") return `${groupCategory}::${item}`;
@@ -320,7 +334,6 @@ export default function TripDetailPage() {
 
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="space-y-1">
-            {/* Replaced Earth Icon with Styled Travel Icon Badge */}
             <div className="flex items-center gap-2">
               <div className="h-6 w-6 rounded-lg bg-primary/10 text-primary flex items-center justify-center border border-primary/20 shrink-0">
                 <Compass className="h-3.5 w-3.5" />
@@ -405,8 +418,8 @@ export default function TripDetailPage() {
               {trip?.vaccineStatus ? String(trip.vaccineStatus).replace(/-/g, " ") : "Not Reviewed"}
             </p>
             <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
-              {destination?.vaccineRequirements?.length
-                ? `${destination.vaccineRequirements.length} recommended immunization(s) for ${destination.name}.`
+              {vaccineList.length > 0
+                ? `${vaccineList.length} recommended immunization(s) for${destination?.name || "destination"}.`
                 : "No high-risk endemic vaccines flagged."}
             </p>
           </div>
@@ -434,8 +447,8 @@ export default function TripDetailPage() {
               </span>
             </div>
             <p className="text-base font-bold capitalize text-foreground mt-1">
-              {malariaPlan?.medication
-                ? String(malariaPlan.medication).replace(/-/g, " ")
+              {activeMedication
+                ? String(activeMedication).replace(/-/g, " ")
                 : trip?.malariaPlanStatus
                   ? String(trip.malariaPlanStatus).replace(/-/g, " ")
                   : "No Plan Configured"}
@@ -469,8 +482,7 @@ export default function TripDetailPage() {
               {trip.emergencyAcknowledged ? "Acknowledged" : "Action Needed"}
             </p>
             <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
-              Police: {destination?.emergencyNumbers?.police || "911 / 112"} • Ambulance:{" "}
-              {destination?.emergencyNumbers?.ambulance || "911 / 112"}
+              Police: {policeContact} • Ambulance: {ambulanceContact}
             </p>
           </div>
           <div className="flex items-center justify-between pt-2 border-t border-border/60">
@@ -537,9 +549,7 @@ export default function TripDetailPage() {
                   Medication
                 </span>
                 <span className="font-bold text-foreground capitalize">
-                  {malariaPlan?.medication
-                    ? String(malariaPlan.medication).replace(/-/g, " ")
-                    : "Configured Regimen"}
+                  {activeMedication ? String(activeMedication).replace(/-/g, " ") : "Configured Regimen"}
                 </span>
               </div>
 
@@ -882,7 +892,9 @@ export default function TripDetailPage() {
       <MalariaPlanModal
         isOpen={isMalariaModalOpen}
         onClose={() => setIsMalariaModalOpen(false)}
-        onSave={async (medication, timezone) => {
+        onSave={async (plan: any) => {
+          const medication = typeof plan === "object" ? plan.medication || plan.drugKey : plan;
+          const timezone = typeof plan === "object" ? plan.timezone || "UTC" : "UTC";
           await saveMalariaMutation.mutateAsync({ medication, timezone });
         }}
         tripDeparture={trip.departureDate}
