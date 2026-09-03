@@ -1,6 +1,7 @@
 // frontend/src/layouts/UserDashboardLayout.tsx
 import { ReactNode } from "react";
-import { NavLink, Link, useNavigate } from "react-router-dom";
+import { NavLink, Link, useNavigate, useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import {
   Compass,
   Plane,
@@ -8,7 +9,9 @@ import {
   LogOut,
   PlusCircle,
   ExternalLink,
+  ShieldAlert,
 } from "lucide-react";
+import { fetchTrips } from "@/api/tripApi";
 import { logoutRequest } from "@/api/authApi";
 
 interface Props {
@@ -17,12 +20,24 @@ interface Props {
 
 export function UserDashboardLayout({ children }: Props) {
   const navigate = useNavigate();
+  const { id: currentTripId } = useParams<{ id: string }>();
+
+  const { data: trips = [] } = useQuery({
+    queryKey: ["trips"],
+    queryFn: fetchTrips,
+  });
+
+  const now = new Date().setHours(0, 0, 0, 0);
+  const upcomingTrips = trips.filter((t) => new Date(t.returnDate).getTime() >= now);
+  const activeTrip =
+    trips.find((t: any) => (t._id || t.id) === currentTripId) || upcomingTrips[0] || null;
+  const activeTripId = activeTrip ? activeTrip._id || (activeTrip as any).id : null;
 
   const handleLogout = async () => {
     try {
       await logoutRequest();
     } catch {
-      // Clean up session and navigate even if the network call fails
+      // Fallback redirect
     } finally {
       navigate("/login");
     }
@@ -31,14 +46,23 @@ export function UserDashboardLayout({ children }: Props) {
   const navItems = [
     { to: "/dashboard", label: "Dashboard Overview", icon: Compass },
     { to: "/account/trips", label: "My Trips", icon: Plane },
+    ...(activeTripId
+      ? [
+          {
+            to: `/trip/${activeTripId}`,
+            label: "Preparation Hub",
+            icon: ShieldAlert,
+          },
+        ]
+      : []),
     { to: "/account", label: "Account Settings", icon: UserCircle },
   ];
 
   return (
     <div className="flex min-h-[calc(100vh-4rem)] bg-background">
-      {/* Sticky Left Sidebar with Viewport Bounds */}
+      {/* Sticky Left Sidebar */}
       <aside className="sticky top-16 h-[calc(100vh-4rem)] w-64 shrink-0 border-r border-border bg-card/50 backdrop-blur-sm p-4 hidden md:flex flex-col justify-between">
-        {/* Scrollable Navigation Body */}
+        {/* Scrollable Nav Section */}
         <div className="flex-1 overflow-y-auto pr-1 space-y-6">
           <div className="px-2 pt-1">
             <h2 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
@@ -53,7 +77,7 @@ export function UserDashboardLayout({ children }: Props) {
                 <NavLink
                   key={item.to}
                   to={item.to}
-                  end={item.to === "/dashboard"}
+                  end={item.to === "/account" || item.to === "/dashboard"}
                   className={({ isActive }) =>
                     `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                       isActive
@@ -88,7 +112,7 @@ export function UserDashboardLayout({ children }: Props) {
           </div>
         </div>
 
-        {/* Anchored Visible Footer */}
+        {/* Bottom Pinned Footer */}
         <div className="pt-3 mt-2 border-t border-border shrink-0 bg-transparent">
           <button
             onClick={handleLogout}
@@ -100,7 +124,7 @@ export function UserDashboardLayout({ children }: Props) {
         </div>
       </aside>
 
-      {/* Right Content Area */}
+      {/* Main Content Area */}
       <main className="flex-1 overflow-y-auto px-4 sm:px-8 py-8">
         <div className="max-w-5xl mx-auto">{children}</div>
       </main>

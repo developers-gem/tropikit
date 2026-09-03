@@ -1,5 +1,6 @@
 // frontend/src/pages/TripsPage.tsx
-import { Link } from "react-router-dom";
+import { useState, useMemo } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   Calendar,
@@ -10,12 +11,21 @@ import {
   AlertCircle,
   Clock,
   Trash2,
+  CalendarDays,
+  Plane,
+  Sparkles,
+  ListChecks,
+  Siren,
+  Compass,
 } from "lucide-react";
+
 import { fetchTrips, deleteTrip } from "@/api/tripApi";
+import { fetchDestinations } from "@/api/destinationApi";
 import { LoadingState, ErrorState } from "@/components/StateViews";
-import type { Destination } from "@/types/api";
+import type { Destination, Trip } from "@/types/api";
 
 function formatDate(iso: string) {
+  if (!iso) return "—";
   return new Date(iso).toLocaleDateString(undefined, {
     month: "short",
     day: "numeric",
@@ -29,237 +39,368 @@ function getDaysUntil(iso: string): number {
 }
 
 export default function TripsPage() {
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const [activeTab, setActiveTab] = useState<"upcoming" | "past">("upcoming");
+  const [deletingTripId, setDeletingTripId] = useState<string | null>(null);
 
   const {
     data: trips = [],
-    isLoading,
-    isError,
+    isLoading: isTripsLoading,
+    isError: isTripsError,
     refetch,
   } = useQuery({
     queryKey: ["trips"],
     queryFn: fetchTrips,
   });
 
+  const { data: destinations = [] } = useQuery({
+    queryKey: ["destinations"],
+    queryFn: () => fetchDestinations(),
+  });
+
+  // Map destinations by _id, id, and slug for instant lookup if destinationId is unpopulated
+  const destinationMap = useMemo(() => {
+    const map = new Map<string, Destination>();
+    destinations.forEach((d) => {
+      const item = d as unknown as Record<string, unknown>;
+      if (item._id && typeof item._id === "string") map.set(item._id, d);
+      if (item.id && typeof item.id === "string") map.set(item.id, d);
+      if (d.slug) map.set(d.slug, d);
+      if (d.code) map.set(d.code, d);
+    });
+    return map;
+  }, [destinations]);
+
+  const resolveDestination = (trip: Trip): { name: string; region: string; code?: string } => {
+    if (trip.destinationId && typeof trip.destinationId === "object") {
+      const dest = trip.destinationId as unknown as Destination;
+      return {
+        name: dest.name || (dest as any).country || "Destination",
+        region: dest.region || "Global Travel",
+        code: dest.code || (dest as any).countryCode,
+      };
+    }
+
+    const tripRecord = trip as unknown as Record<string, unknown>;
+    if (tripRecord.destination && typeof tripRecord.destination === "object") {
+      const dest = tripRecord.destination as Destination;
+      return {
+        name: dest.name || (dest as any).country || "Destination",
+        region: dest.region || "Global Travel",
+        code: dest.code || (dest as any).countryCode,
+      };
+    }
+
+    const refKey =
+      typeof trip.destinationId === "string"
+        ? trip.destinationId
+        : ((tripRecord.destination || tripRecord.destinationSlug) as string | undefined);
+
+    if (refKey && destinationMap.has(refKey)) {
+      const dest = destinationMap.get(refKey)!;
+      return {
+        name: dest.name || (dest as any).country || "Destination",
+        region: dest.region || "Global Travel",
+        code: dest.code || (dest as any).countryCode,
+      };
+    }
+
+    if (tripRecord.destinationName && typeof tripRecord.destinationName === "string") {
+      return {
+        name: tripRecord.destinationName,
+        region: (tripRecord.destinationRegion || tripRecord.region || "Global Travel") as string,
+        code: (tripRecord.destinationCode || tripRecord.countryCode) as string | undefined,
+      };
+    }
+
+    return { name: "Destination", region: "Global Travel", code: undefined };
+  };
+
+  const getTripId = (trip: Trip): string => {
+    const item = trip as unknown as Record<string, unknown>;
+    return (trip._id || item.id || "") as string;
+  };
+
   const deleteMutation = useMutation({
     mutationFn: deleteTrip,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["trips"] });
+      setDeletingTripId(null);
+    },
+    onError: (err: any) => {
+      alert(err?.message || "Failed to delete trip.");
+      setDeletingTripId(null);
     },
   });
 
   const handleDelete = (tripId: string, destName: string) => {
     if (!confirm(`Delete trip to ${destName}? This action cannot be undone.`)) return;
+    setDeletingTripId(tripId);
     deleteMutation.mutate(tripId);
   };
 
-  if (isLoading) {
-    return <LoadingState label="Loading your trips..." />;
+  if (isTripsLoading) {
+    return <LoadingState label="Loading your travel itineraries..." />;
   }
 
-  if (isError) {
-    return <ErrorState message="Could not load trips." onRetry={() => refetch()} />;
+  if (isTripsError) {
+    return <ErrorState message="Could not load your trips." onRetry={() => refetch()} />;
   }
 
   const now = new Date().setHours(0, 0, 0, 0);
-  const upcomingTrips = trips.filter((t) => new Date(t.returnDate).getTime() >= now);
-  const pastTrips = trips.filter((t) => new Date(t.returnDate).getTime() < now);
+  const upcomingTrips = trips
+    .filter((t) => new Date(t.returnDate).getTime() >= now)
+    .sort((a, b) => new Date(a.departureDate).getTime() - new Date(b.departureDate).getTime());
+
+  const pastTrips = trips
+    .filter((t) => new Date(t.returnDate).getTime() < now)
+    .sort((a, b) => new Date(b.departureDate).getTime() - new Date(a.departureDate).getTime());
+
+  const displayedTrips = activeTab === "upcoming" ? upcomingTrips : pastTrips;
 
   return (
-    <div className="space-y-8">
-      {/* Dashboard Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border pb-6">
-        <div>
-          <h1 className="text-3xl font-bold text-foreground">My Trips</h1>
-          <p className="text-sm text-muted-foreground mt-1">
-            Manage your destinations, travel-health readiness, and scheduled preparation.
-          </p>
+    <div className="w-full space-y-3 p-0 m-0">
+      {/* 1. Hero Header Banner */}
+      <div className="relative overflow-hidden rounded-xl bg-linear-to-br from-primary/10 via-card to-background border border-border p-4 sm:p-5 shadow-xs">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="space-y-1">
+            <div className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
+              <Sparkles className="h-2.5 w-2.5" />
+              Traveler Itinerary Hub
+            </div>
+            <h1 className="text-xl sm:text-3xl font-extrabold tracking-tight text-foreground">
+              My Planned <span className="text-primary">Trips</span>
+            </h1>
+            <p className="text-xs text-muted-foreground leading-relaxed max-w-xl">
+              Manage your destinations, travel-health readiness, immunization checkpoints, and scheduled preparation.
+            </p>
+            <div className="flex items-center gap-3 text-xs text-muted-foreground pt-0.5">
+              <span className="font-semibold text-foreground">
+                {upcomingTrips.length} Active & Upcoming
+              </span>
+              <span className="text-border">•</span>
+              <span>{pastTrips.length} Completed</span>
+            </div>
+          </div>
+
+          <Link
+            to="/trip/create"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-all shadow-xs self-start sm:self-center cursor-pointer"
+          >
+            <Plus className="h-3.5 w-3.5" />
+            Plan New Trip
+          </Link>
         </div>
+      </div>
+
+      {/* 2. Tabs Selector Toolbar */}
+      <div className="flex items-center justify-between border-b border-border/80 pb-2">
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setActiveTab("upcoming")}
+            className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors cursor-pointer ${
+              activeTab === "upcoming"
+                ? "bg-primary text-primary-foreground shadow-xs"
+                : "text-muted-foreground hover:text-foreground hover:bg-muted"
+            }`}
+          >
+            Active & Upcoming ({upcomingTrips.length})
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab("past")}
+            className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors cursor-pointer ${
+              activeTab === "past"
+                ? "bg-primary text-primary-foreground shadow-xs"
+                : "text-muted-foreground hover:text-foreground hover:bg-muted"
+            }`}
+          >
+            Past Expeditions ({pastTrips.length})
+          </button>
+        </div>
+
         <Link
-          to="/trip/create"
-          className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors self-start sm:self-auto shadow-sm"
+          to="/destinations"
+          className="text-xs font-semibold text-primary hover:underline flex items-center gap-1 hidden sm:flex"
         >
-          <Plus className="h-4 w-4" />
-          Plan New Trip
+          Explore Destinations <ArrowRight className="h-3 w-3" />
         </Link>
       </div>
 
-      {/* Empty State */}
-      {trips.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-border bg-card p-12 text-center space-y-4">
-          <div className="w-12 h-12 rounded-full bg-primary/10 text-primary mx-auto flex items-center justify-center">
-            <MapPin className="h-6 w-6" />
+      {/* 3. Trips Grid View */}
+      {displayedTrips.length === 0 ? (
+        <div className="rounded-xl border border-dashed border-border bg-card p-8 text-center space-y-2">
+          <div className="p-2.5 rounded-full bg-muted/60 text-muted-foreground inline-block">
+            <Plane className="h-6 w-6" />
           </div>
-          <div>
-            <h3 className="text-lg font-semibold text-foreground">No trips planned yet</h3>
-            <p className="text-xs text-muted-foreground max-w-sm mx-auto mt-1">
-              Select a tropical or health-risk destination to generate your health checklist, malaria plan, and vaccine schedule.
-            </p>
-          </div>
-          <Link
-            to="/trip/create"
-            className="inline-flex items-center gap-1 px-4 py-2 text-xs font-semibold rounded-md bg-primary text-primary-foreground hover:bg-primary/90"
-          >
-            Create Your First Trip
-          </Link>
+          <h3 className="text-sm font-bold text-foreground">
+            {activeTab === "upcoming" ? "No upcoming trips planned" : "No past trips logged"}
+          </h3>
+          <p className="text-xs text-muted-foreground max-w-sm mx-auto">
+            {activeTab === "upcoming"
+              ? "Select a destination to generate your personalized health checklist, malaria plan, and vaccine schedule."
+              : "Completed journeys will automatically appear here once their return date has passed."}
+          </p>
+          {activeTab === "upcoming" && (
+            <Link
+              to="/trip/create"
+              className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold text-primary hover:underline pt-1 cursor-pointer"
+            >
+              <Plus className="h-3 w-3" />
+              Create your first trip
+            </Link>
+          )}
         </div>
       ) : (
-        <div className="space-y-8">
-          {/* Upcoming Trips Section */}
-          <section className="space-y-4">
-            <h2 className="text-base font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-2">
-              <Clock className="h-4 w-4" />
-              Active & Upcoming Trips ({upcomingTrips.length})
-            </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          {displayedTrips.map((trip) => {
+            const tripId = getTripId(trip);
+            const daysUntil = getDaysUntil(trip.departureDate);
+            const { name: destName, region: destRegion } = resolveDestination(trip);
+            const isDeleting = deletingTripId === tripId;
 
-            {upcomingTrips.length === 0 ? (
-              <p className="text-xs text-muted-foreground italic">No upcoming trips scheduled.</p>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                {upcomingTrips.map((trip) => {
-                  const daysUntil = getDaysUntil(trip.departureDate);
-                  const dest =
-                    typeof trip.destinationId === "object"
-                      ? (trip.destinationId as unknown as Destination)
-                      : null;
-                  const destName = dest?.name || "Destination";
-                  const region = dest?.region || "";
-
-                  return (
-                    <div
-                      key={trip._id}
-                      className="rounded-xl border border-border bg-card p-5 shadow-soft hover:border-primary/40 transition-colors flex flex-col justify-between"
-                    >
-                      <div className="space-y-3">
-                        <div className="flex items-start justify-between gap-2">
-                          <div>
-                            <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                              <MapPin className="h-3.5 w-3.5 text-primary" />
-                              <span>{region}</span>
-                            </div>
-                            <h3 className="text-xl font-bold text-foreground mt-0.5">{destName}</h3>
-                          </div>
-                          <button
-                            onClick={() => handleDelete(trip._id, destName)}
-                            title="Delete trip"
-                            className="text-muted-foreground hover:text-destructive p-1 rounded transition-colors"
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </button>
-                        </div>
-
-                        {/* Dates & Countdown */}
-                        <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                          <Calendar className="h-3.5 w-3.5" />
-                          <span>
-                            {formatDate(trip.departureDate)} — {formatDate(trip.returnDate)}
-                          </span>
-                        </div>
-
-                        {daysUntil > 0 ? (
-                          <div className="inline-block text-[11px] font-semibold text-primary bg-primary/10 px-2 py-0.5 rounded">
-                            {daysUntil} days until departure
-                          </div>
-                        ) : daysUntil === 0 ? (
-                          <div className="inline-block text-[11px] font-semibold text-emerald-700 bg-emerald-100 dark:bg-emerald-950/40 dark:text-emerald-400 px-2 py-0.5 rounded">
-                            Departing today
-                          </div>
-                        ) : (
-                          <div className="inline-block text-[11px] font-semibold text-amber-700 bg-amber-100 dark:bg-amber-950/40 dark:text-amber-400 px-2 py-0.5 rounded">
-                            Currently traveling
+            return (
+              <div
+                key={tripId || trip.departureDate}
+                className="group relative rounded-xl border border-border bg-card p-4 shadow-xs hover:border-primary/40 hover:shadow-sm transition-all flex flex-col justify-between"
+              >
+                <div className="space-y-3">
+                  {/* Top Header: Styled Travel Badge, Destination & Delete */}
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="flex items-center gap-2.5">
+                      {/* Replaced Earth emoji with clean Compass icon badge */}
+                      <div className="h-9 w-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center border border-primary/20 shrink-0">
+                        <Compass className="h-4.5 w-4.5" />
+                      </div>
+                      <div>
+                        {destRegion && (
+                          <div className="flex items-center gap-1 text-[11px] text-muted-foreground">
+                            <MapPin className="h-3 w-3 text-primary" />
+                            <span>{destRegion}</span>
                           </div>
                         )}
-
-                        {/* Readiness Indicators */}
-                        <div className="pt-3 border-t border-border flex flex-wrap gap-2 text-[11px]">
-                          <span
-                            className={`px-2 py-0.5 rounded font-medium flex items-center gap-1 ${
-                              trip.vaccineStatus === "reviewed"
-                                ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-400"
-                                : "bg-muted text-muted-foreground"
-                            }`}
-                          >
-                            <ShieldCheck className="h-3.5 w-3.5" />
-                            Vaccines: {trip.vaccineStatus.replace("-", " ")}
-                          </span>
-
-                          <span
-                            className={`px-2 py-0.5 rounded font-medium flex items-center gap-1 ${
-                              trip.malariaPlanStatus === "confirmed"
-                                ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-400"
-                                : "bg-muted text-muted-foreground"
-                            }`}
-                          >
-                            <AlertCircle className="h-3.5 w-3.5" />
-                            Malaria: {trip.malariaPlanStatus.replace("-", " ")}
-                          </span>
-                        </div>
-                      </div>
-
-                      {/* Action Link to Full Trip Hub */}
-                      <div className="mt-5 pt-3 border-t border-border flex justify-end">
-                        <Link
-                          to={`/trip/${trip._id}`}
-                          className="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline"
-                        >
-                          Open Preparation Hub
-                          <ArrowRight className="h-3.5 w-3.5" />
-                        </Link>
+                        <h3 className="text-base font-bold text-foreground group-hover:text-primary transition-colors leading-tight mt-0.5">
+                          {destName}
+                        </h3>
                       </div>
                     </div>
-                  );
-                })}
-              </div>
-            )}
-          </section>
 
-          {/* Past Trips Section */}
-          {pastTrips.length > 0 && (
-            <section className="space-y-4 pt-4 border-t border-border">
-              <h2 className="text-base font-bold uppercase tracking-wider text-muted-foreground">
-                Past Trips ({pastTrips.length})
-              </h2>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {pastTrips.map((trip) => {
-                  const dest =
-                    typeof trip.destinationId === "object"
-                      ? (trip.destinationId as unknown as Destination)
-                      : null;
-                  const destName = dest?.name || "Destination";
-
-                  return (
-                    <div
-                      key={trip._id}
-                      className="rounded-lg border border-border bg-muted/20 p-4 flex items-center justify-between"
+                    <button
+                      type="button"
+                      onClick={() => handleDelete(tripId, destName)}
+                      disabled={isDeleting}
+                      title="Delete trip"
+                      className="text-muted-foreground/50 hover:text-destructive p-1 rounded-md transition-colors cursor-pointer"
                     >
-                      <div>
-                        <h4 className="font-semibold text-foreground text-sm">{destName}</h4>
-                        <span className="text-xs text-muted-foreground">
-                          {formatDate(trip.departureDate)} — {formatDate(trip.returnDate)}
-                        </span>
-                      </div>
+                      <Trash2 className="h-3.5 w-3.5" />
+                    </button>
+                  </div>
 
-                      <div className="flex items-center gap-3">
-                        <Link
-                          to={`/trip/${trip._id}`}
-                          className="text-xs font-medium text-primary hover:underline"
-                        >
-                          Review Trip
-                        </Link>
-                        <button
-                          onClick={() => handleDelete(trip._id, destName)}
-                          className="text-muted-foreground hover:text-destructive text-xs p-1"
-                        >
-                          <Trash2 className="h-3.5 w-3.5" />
-                        </button>
-                      </div>
+                  {/* Dates & Countdown Banner */}
+                  <div className="p-2.5 rounded-lg bg-muted/40 border border-border/60 text-xs space-y-1">
+                    <div className="flex items-center gap-1.5 text-muted-foreground">
+                      <Calendar className="h-3 w-3 text-primary shrink-0" />
+                      <span>
+                        {formatDate(trip.departureDate)} — {formatDate(trip.returnDate)}
+                      </span>
                     </div>
-                  );
-                })}
+                    <div className="flex items-center gap-1.5 font-semibold text-primary text-[11px]">
+                      <CalendarDays className="h-3 w-3 shrink-0" />
+                      <span>
+                        {daysUntil > 0
+                          ? `${daysUntil} days until departure`
+                          : daysUntil === 0
+                          ? "Departing today!"
+                          : activeTab === "upcoming"
+                          ? "Trip currently in progress"
+                          : "Trip completed"}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Readiness Indicators */}
+                  <div className="grid grid-cols-3 gap-1.5 text-[10px]">
+                    <div className="p-1.5 rounded-md border border-border/60 bg-background text-center">
+                      <span className="text-muted-foreground block text-[9px] uppercase font-bold">
+                        Vaccines
+                      </span>
+                      <span className="font-semibold text-foreground flex items-center justify-center gap-0.5 mt-0.5">
+                        <ShieldCheck
+                          className={`h-2.5 w-2.5 ${
+                            trip.vaccineStatus === "reviewed"
+                              ? "text-emerald-600"
+                              : "text-amber-500"
+                          }`}
+                        />
+                        <span className="truncate capitalize">
+                          {trip.vaccineStatus ? String(trip.vaccineStatus).replace(/-/g, " ") : "Pending"}
+                        </span>
+                      </span>
+                    </div>
+
+                    <div className="p-1.5 rounded-md border border-border/60 bg-background text-center">
+                      <span className="text-muted-foreground block text-[9px] uppercase font-bold">
+                        Malaria
+                      </span>
+                      <span className="font-semibold text-foreground flex items-center justify-center gap-0.5 mt-0.5">
+                        <Clock
+                          className={`h-2.5 w-2.5 ${
+                            trip.malariaPlanStatus === "confirmed"
+                              ? "text-emerald-600"
+                              : "text-amber-500"
+                          }`}
+                        />
+                        <span className="truncate capitalize">
+                          {trip.malariaPlanStatus
+                            ? String(trip.malariaPlanStatus).replace(/-/g, " ")
+                            : "None"}
+                        </span>
+                      </span>
+                    </div>
+
+                    <div className="p-1.5 rounded-md border border-border/60 bg-background text-center">
+                      <span className="text-muted-foreground block text-[9px] uppercase font-bold">
+                        Emergency
+                      </span>
+                      <span className="font-semibold text-foreground flex items-center justify-center gap-0.5 mt-0.5">
+                        <Siren
+                          className={`h-2.5 w-2.5 ${
+                            trip.emergencyAcknowledged
+                              ? "text-emerald-600"
+                              : "text-muted-foreground"
+                          }`}
+                        />
+                        <span className="truncate">
+                          {trip.emergencyAcknowledged ? "Ready" : "Pending"}
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Footer Actions */}
+                <div className="flex items-center justify-between gap-2 pt-3 mt-3 border-t border-border/60 text-xs">
+                  <Link
+                    to={`/checklist?trip=${tripId}`}
+                    className="inline-flex items-center gap-1 text-[11px] font-semibold text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    <ListChecks className="h-3 w-3" />
+                    Checklist
+                  </Link>
+
+                  <button
+                    type="button"
+                    onClick={() => navigate(`/trip/${tripId}`)}
+                    className="inline-flex items-center gap-1 font-semibold text-primary hover:underline cursor-pointer bg-transparent border-0 p-0"
+                  >
+                    Open Preparation Hub <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
+                  </button>
+                </div>
               </div>
-            </section>
-          )}
+            );
+          })}
         </div>
       )}
     </div>

@@ -13,14 +13,6 @@ export class ApiError extends Error {
   }
 }
 
-/**
- * The access token lives in memory only — NOT localStorage — for the lifetime of this page
- * load. This is a real, meaningful reduction in XSS exposure versus the previous approach:
- * a script-injection attack can no longer simply read a persisted token out of storage.
- * The trade-off is that a full page reload loses it, which is why AuthProvider calls
- * silentRefresh() on startup to get a fresh one from the httpOnly refresh cookie — the
- * refresh token itself is never readable by JS at all, in storage or in memory.
- */
 let accessToken: string | null = null;
 
 export function getAccessToken(): string | null {
@@ -35,7 +27,6 @@ interface RequestOptions {
   method?: "GET" | "POST" | "PUT" | "DELETE";
   body?: unknown;
   auth?: boolean;
-  /** Internal: prevents infinite retry loops when refresh itself fails. */
   _isRetry?: boolean;
 }
 
@@ -47,29 +38,39 @@ async function rawRequest(path: string, options: RequestOptions) {
   return fetch(`${API_URL}/api/v1${path}`, {
     method,
     headers,
-    // Needed so the httpOnly refresh-token cookie is sent on /auth/refresh and /auth/logout
-    // (the cookie is scoped server-side to /api/v1/auth, so this has no effect elsewhere).
     credentials: "include",
     body: body ? JSON.stringify(body) : undefined,
   });
 }
 
-/** Attempts to trade the httpOnly refresh cookie for a new access token. Never throws —
- *  returns whether it succeeded, since callers treat failure as "not logged in" rather than
- *  an error to surface. */
+// Single in-flight promise to prevent multiple parallel refresh requests
+let refreshPromise: Promise<boolean> | null = null;
+
 export async function silentRefresh(): Promise<boolean> {
-  try {
-    const res = await fetch(`${API_URL}/api/v1/auth/refresh`, {
-      method: "POST",
-      credentials: "include",
-    });
-    const json = await res.json().catch(() => null);
-    if (!res.ok || !json?.success) return false;
-    setAccessToken(json.data.accessToken);
-    return true;
-  } catch {
-    return false;
-  }
+  if (refreshPromise) return refreshPromise;
+
+  refreshPromise = (async () => {
+    try {
+      const res = await fetch(`${API_URL}/api/v1/auth/refresh`, {
+        method: "POST",
+        credentials: "include",
+      });
+      const json = await res.json().catch(() => null);
+      if (!res.ok || !json?.success) {
+        setAccessToken(null);
+        return false;
+      }
+      setAccessToken(json.data.accessToken);
+      return true;
+    } catch {
+      setAccessToken(null);
+      return false;
+    } finally {
+      refreshPromise = null;
+    }
+  })();
+
+  return refreshPromise;
 }
 
 export async function apiRequest<T>(path: string, options: RequestOptions = {}): Promise<T> {
@@ -77,11 +78,15 @@ export async function apiRequest<T>(path: string, options: RequestOptions = {}):
   const json = await res.json().catch(() => null);
 
   if (res.status === 401 && options.auth && !options._isRetry) {
-    // The access token likely expired mid-session — try exactly one silent refresh before
-    // giving up, so a 15-minute access-token lifetime doesn't mean re-login every 15 minutes.
     const refreshed = await silentRefresh();
     if (refreshed) {
       return apiRequest<T>(path, { ...options, _isRetry: true });
+    }
+
+    // Refresh token expired / invalid — clean redirect to login
+    if (!window.location.pathname.startsWith("/login")) {
+      window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`;
+      return new Promise<never>(() => {}); // halts further processing while redirecting
     }
   }
 
