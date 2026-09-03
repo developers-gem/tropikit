@@ -1,69 +1,80 @@
 // frontend/src/components/MalariaPlanModal.tsx
-import { useState, useMemo } from "react";
+import { useState, useEffect, type FormEvent } from "react";
 import {
-  ShieldAlert,
-  Clock,
-  Calendar,
-  Pill,
-  Bell,
   X,
-  Info,
-  Check,
+  Pill,
+  Calendar,
+  Globe,
+  CheckCircle2,
+  AlertCircle,
+  Clock,
+  ShieldCheck,
 } from "lucide-react";
-import { MalariaPlanPayload } from "@/api/tripApi";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
-interface MalariaPlanModalProps {
+export interface MalariaPlanPayload {
+  medication: string;
+  timezone: string;
+}
+
+export interface MalariaPlanModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSave: (plan: MalariaPlanPayload) => Promise<void>;
-  tripDeparture: string;
-  tripReturn: string;
-  existingPlan?: any;
+  tripDeparture?: string;
+  tripReturn?: string;
+  existingPlan?: {
+    medication?: string;
+    drugKey?: string;
+    timezone?: string;
+  } | null;
 }
 
-interface RegimenConfig {
-  name: string;
-  brand: string;
-  daysBefore: number;
-  daysAfter: number;
-  frequency: "daily" | "weekly";
-  guidance: string;
-}
-
-const REGIMENS: Record<string, RegimenConfig> = {
-  "atovaquone-proguanil": {
-    name: "Atovaquone-Proguanil",
-    brand: "Malarone",
-    daysBefore: 1, // 1-2 days before
-    daysAfter: 7, // 7 days after leaving endemic zone
-    frequency: "daily",
-    guidance: "Take daily with food or milk at the same time every day.",
+const DRUG_OPTIONS = [
+  {
+    key: "atovaquone-proguanil",
+    name: "Atovaquone / Proguanil (Malarone)",
+    frequency: "Daily",
+    timing: "Start 1–2 days before travel, continue daily during trip, finish 7 days post-return.",
+    daysBefore: 1,
+    daysAfter: 7,
   },
-  doxycycline: {
+  {
+    key: "doxycycline",
     name: "Doxycycline",
-    brand: "Vibramycin",
-    daysBefore: 2, // 1-2 days before
-    daysAfter: 28, // 4 weeks after travel
-    frequency: "daily",
-    guidance: "Take daily with a full glass of water. Avoid lying down for 30 minutes. Use sun protection.",
+    frequency: "Daily",
+    timing: "Start 1–2 days before travel, continue daily during trip, finish 28 days post-return.",
+    daysBefore: 2,
+    daysAfter: 28,
   },
-  mefloquine: {
-    name: "Mefloquine",
-    brand: "Lariam",
-    daysBefore: 14, // 2-3 weeks before
-    daysAfter: 28, // 4 weeks after travel
-    frequency: "weekly",
-    guidance: "Take once weekly on the same day each week, starting 2 weeks before travel.",
+  {
+    key: "mefloquine",
+    name: "Mefloquine (Lariam)",
+    frequency: "Weekly",
+    timing: "Start ≥ 2 weeks before travel, continue weekly during trip, finish 4 weeks post-return.",
+    daysBefore: 14,
+    daysAfter: 28,
   },
-  chloroquine: {
+  {
+    key: "chloroquine",
     name: "Chloroquine",
-    brand: "Aralen",
-    daysBefore: 7, // 1-2 weeks before
-    daysAfter: 28, // 4 weeks after travel
-    frequency: "weekly",
-    guidance: "Only suitable for regions with chloroquine-sensitive P. vivax/malariae strains.",
+    frequency: "Weekly",
+    timing: "Start 1–2 weeks before travel, continue weekly during trip, finish 4 weeks post-return. (Only for sensitive zones).",
+    daysBefore: 7,
+    daysAfter: 28,
   },
-};
+];
+
+function formatDate(iso?: string) {
+  if (!iso) return "—";
+  return new Date(iso).toLocaleDateString(undefined, {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+}
 
 export function MalariaPlanModal({
   isOpen,
@@ -73,269 +84,235 @@ export function MalariaPlanModal({
   tripReturn,
   existingPlan,
 }: MalariaPlanModalProps) {
-  const [selectedMed, setSelectedMed] = useState<string>(
-    existingPlan?.medicationKey || "atovaquone-proguanil"
-  );
-  const [reminderEnabled, setReminderEnabled] = useState<boolean>(
-    existingPlan?.reminderEnabled ?? true
-  );
-  const [reminderTime, setReminderTime] = useState<string>(
-    existingPlan?.reminderTime || "08:00"
-  );
-  const [calendarSynced, setCalendarSynced] = useState<boolean>(
-    existingPlan?.calendarSynced ?? true
-  );
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [selectedDrug, setSelectedDrug] = useState("atovaquone-proguanil");
+  const [timezone, setTimezone] = useState("UTC");
+  const [isSaving, setIsSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  // Compute clinical timeline dates
-  const calculated = useMemo(() => {
-    const regimen = REGIMENS[selectedMed] || REGIMENS["atovaquone-proguanil"];
-    const dep = new Date(tripDeparture);
-    const ret = new Date(tripReturn);
-
-    // Start date = departure - daysBefore
-    const start = new Date(dep);
-    start.setDate(start.getDate() - regimen.daysBefore);
-
-    // Final dose = return + daysAfter
-    const end = new Date(ret);
-    end.setDate(end.getDate() + regimen.daysAfter);
-
-    // Total span in calendar days
-    const totalDays = Math.ceil(
-      (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)
-    ) + 1;
-
-    // Total dose count
-    const totalDoses =
-      regimen.frequency === "weekly"
-        ? Math.ceil(totalDays / 7)
-        : totalDays;
-
-    return {
-      regimen,
-      startDate: start.toISOString().split("T")[0],
-      finalDoseDate: end.toISOString().split("T")[0],
-      totalDoseDays: totalDoses,
-    };
-  }, [selectedMed, tripDeparture, tripReturn]);
+  useEffect(() => {
+    if (existingPlan) {
+      const drug = existingPlan.drugKey || existingPlan.medication || "atovaquone-proguanil";
+      setSelectedDrug(drug);
+      if (existingPlan.timezone) {
+        setTimezone(existingPlan.timezone);
+      }
+    } else {
+      try {
+        const localTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        if (localTz) setTimezone(localTz);
+      } catch {
+        setTimezone("UTC");
+      }
+    }
+  }, [existingPlan, isOpen]);
 
   if (!isOpen) return null;
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const activeDrugInfo = DRUG_OPTIONS.find((d) => d.key === selectedDrug) || DRUG_OPTIONS[0];
+
+  // Regimen timeline calculation for preview
+  let calculatedStart = "—";
+  let calculatedEnd = "—";
+  if (tripDeparture && tripReturn) {
+    const dep = new Date(tripDeparture);
+    const ret = new Date(tripReturn);
+
+    const start = new Date(dep);
+    start.setDate(start.getDate() - activeDrugInfo.daysBefore);
+    calculatedStart = formatDate(start.toISOString());
+
+    const finish = new Date(ret);
+    finish.setDate(finish.getDate() + activeDrugInfo.daysAfter);
+    calculatedEnd = formatDate(finish.toISOString());
+  }
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setError(null);
+    setIsSaving(true);
+
     try {
-      setIsSubmitting(true);
       await onSave({
-        medication: `${calculated.regimen.name} (${calculated.regimen.brand})`,
-        startDate: calculated.startDate,
-        departureDate: tripDeparture,
-        returnDate: tripReturn,
-        finalDoseDate: calculated.finalDoseDate,
-        totalDoseDays: calculated.totalDoseDays,
-        reminderEnabled,
-        reminderTime,
-        calendarSynced,
-        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        medication: selectedDrug,
+        timezone: timezone.trim() || "UTC",
       });
       onClose();
     } catch (err: any) {
-      alert(err.message || "Failed to save malaria plan.");
+      setError(err?.message || "Failed to save malaria plan.");
     } finally {
-      setIsSubmitting(false);
+      setIsSaving(false);
     }
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm p-4 overflow-y-auto">
-      <div className="relative w-full max-w-xl rounded-2xl border border-border bg-card shadow-2xl p-6 space-y-6">
+      <div className="relative w-full max-w-lg rounded-2xl border border-border bg-card shadow-2xl p-5 sm:p-6 space-y-4 animate-in fade-in zoom-in-95 duration-200 my-8">
         {/* Header */}
-        <div className="flex items-start justify-between border-b border-border pb-4">
+        <div className="flex items-center justify-between border-b border-border pb-3">
           <div className="flex items-center gap-2.5">
-            <Pill className="h-6 w-6 text-primary" />
+            <div className="p-2 rounded-xl bg-amber-500/10 text-amber-600">
+              <Pill className="h-5 w-5" />
+            </div>
             <div>
-              <h3 className="text-lg font-bold text-foreground">
-                {existingPlan ? "Update Antimalarial Regimen" : "Configure Antimalarial Regimen"}
-              </h3>
+              <h2 className="text-base sm:text-lg font-bold text-foreground">
+                Configure Malaria Prevention Plan
+              </h2>
               <p className="text-xs text-muted-foreground">
-                Personalized prophylaxis schedule synced with trip dates.
+                Select your chemoprophylaxis regimen and target reminder timezone.
               </p>
             </div>
           </div>
           <button
+            type="button"
             onClick={onClose}
-            className="text-muted-foreground hover:text-foreground cursor-pointer rounded-lg p-1"
+            className="text-muted-foreground hover:text-foreground p-1 rounded-lg transition-colors cursor-pointer"
           >
-            <X className="h-5 w-5" />
+            <X className="h-4 w-4" />
           </button>
         </div>
 
-        {/* Medical Advisory Notice */}
-        <div className="rounded-xl border border-amber-500/20 bg-amber-500/10 p-3.5 flex gap-3 text-xs text-amber-900 dark:text-amber-200">
-          <ShieldAlert className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
-          <p className="leading-relaxed">
-            <strong>Medical Disclaimer:</strong> This schedule is for planning and reminder
-            purposes only. Medication choices depend on drug resistance profiles, personal
-            contraindications, and medical history. Always consult a qualified travel clinic
-            or physician before taking prescription antimalarials.
-          </p>
-        </div>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Medication Selection */}
+          <div className="space-y-2">
+            <Label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+              Select Prescription Medication
+            </Label>
+            <div className="grid gap-2">
+              {DRUG_OPTIONS.map((opt) => {
+                const isSelected = selectedDrug === opt.key;
+                return (
+                  <button
+                    key={opt.key}
+                    type="button"
+                    onClick={() => setSelectedDrug(opt.key)}
+                    className={`p-3 rounded-xl border text-left transition-all cursor-pointer flex items-start justify-between gap-3 ${
+                      isSelected
+                        ? "border-primary bg-primary/5 text-foreground ring-1 ring-primary/30"
+                        : "border-border bg-background hover:bg-muted/60 text-muted-foreground"
+                    }`}
+                  >
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-2">
+                        <span
+                          className={`text-xs font-bold ${
+                            isSelected ? "text-primary" : "text-foreground"
+                          }`}
+                        >
+                          {opt.name}
+                        </span>
+                        <span className="text-[10px] uppercase font-semibold px-2 py-0.2 rounded-md bg-muted">
+                          {opt.frequency}
+                        </span>
+                      </div>
+                      <p className="text-[11px] leading-relaxed text-muted-foreground">
+                        {opt.timing}
+                      </p>
+                    </div>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
-          {/* Select Medication */}
-          <div>
-            <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground block mb-2">
-              Select Prescribed Medication
-            </label>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-              {Object.entries(REGIMENS).map(([key, reg]) => (
-                <button
-                  type="button"
-                  key={key}
-                  onClick={() => setSelectedMed(key)}
-                  className={`p-3 text-left rounded-xl border transition-all cursor-pointer ${
-                    selectedMed === key
-                      ? "border-primary bg-primary/10 text-primary shadow-xs"
-                      : "border-border bg-background hover:border-border/80 text-foreground"
-                  }`}
-                >
-                  <div className="flex justify-between items-center">
-                    <p className="text-xs font-bold">{reg.name}</p>
-                    {selectedMed === key && <Check className="h-4 w-4 text-primary" />}
-                  </div>
-                  <p className="text-[11px] text-muted-foreground mt-0.5">
-                    {reg.brand} • {reg.frequency}
-                  </p>
-                </button>
-              ))}
+                    <div className="pt-0.5 shrink-0">
+                      <div
+                        className={`h-4 w-4 rounded-full border flex items-center justify-center ${
+                          isSelected
+                            ? "border-primary bg-primary text-primary-foreground"
+                            : "border-muted-foreground/40"
+                        }`}
+                      >
+                        {isSelected && <div className="h-1.5 w-1.5 rounded-full bg-white" />}
+                      </div>
+                    </div>
+                  </button>
+                );
+              })}
             </div>
-            <p className="text-[11px] text-muted-foreground mt-2 italic flex items-center gap-1.5">
-              <Info className="h-3.5 w-3.5 shrink-0 text-primary" />
-              {calculated.regimen.guidance}
+          </div>
+
+          {/* Timezone Input */}
+          <div className="space-y-1.5">
+            <Label
+              htmlFor="reminder-tz"
+              className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1"
+            >
+              <Globe className="h-3.5 w-3.5 text-primary" />
+              Reminder & Schedule Timezone
+            </Label>
+            <Input
+              id="reminder-tz"
+              type="text"
+              required
+              value={timezone}
+              onChange={(e) => setTimezone(e.target.value)}
+              placeholder="e.g. America/New_York or Asia/Phnom_Penh"
+              className="rounded-xl border-border bg-background text-xs sm:text-sm"
+            />
+            <p className="text-[11px] text-muted-foreground">
+              Used to calculate calendar notification times across border crossings.
             </p>
           </div>
 
-          {/* Schedule Summary Card */}
-          <div className="rounded-xl border border-border bg-muted/40 p-4 space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-              Calculated Schedule
-            </h4>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
-              <div>
-                <span className="text-muted-foreground block text-[10px]">Start Date</span>
-                <span className="font-semibold text-foreground">
-                  {new Date(calculated.startDate).toLocaleDateString(undefined, {
-                    month: "short",
-                    day: "numeric",
-                  })}
-                </span>
-                <span className="text-[10px] text-muted-foreground block">
-                  ({calculated.regimen.daysBefore}d pre-trip)
-                </span>
+          {/* Schedule Summary Preview */}
+          {tripDeparture && tripReturn && (
+            <div className="p-3 rounded-xl border border-border bg-muted/30 space-y-2 text-xs">
+              <div className="flex items-center gap-1.5 font-bold text-foreground">
+                <Calendar className="h-3.5 w-3.5 text-primary" />
+                <span>Dosing Schedule Preview</span>
               </div>
-              <div>
-                <span className="text-muted-foreground block text-[10px]">Departure</span>
-                <span className="font-semibold text-foreground">
-                  {new Date(tripDeparture).toLocaleDateString(undefined, {
-                    month: "short",
-                    day: "numeric",
-                  })}
-                </span>
-              </div>
-              <div>
-                <span className="text-muted-foreground block text-[10px]">Return</span>
-                <span className="font-semibold text-foreground">
-                  {new Date(tripReturn).toLocaleDateString(undefined, {
-                    month: "short",
-                    day: "numeric",
-                  })}
-                </span>
-              </div>
-              <div>
-                <span className="text-muted-foreground block text-[10px]">Final Dose</span>
-                <span className="font-semibold text-emerald-600">
-                  {new Date(calculated.finalDoseDate).toLocaleDateString(undefined, {
-                    month: "short",
-                    day: "numeric",
-                  })}
-                </span>
-                <span className="text-[10px] text-muted-foreground block">
-                  (+{calculated.regimen.daysAfter}d post-trip)
-                </span>
-              </div>
-            </div>
-
-            <div className="border-t border-border/80 pt-2 flex justify-between items-center text-xs">
-              <span className="text-muted-foreground">Total Doses Required:</span>
-              <span className="font-bold text-primary text-sm">
-                {calculated.totalDoseDays} {calculated.regimen.frequency === "weekly" ? "weekly doses" : "daily tablets"}
-              </span>
-            </div>
-          </div>
-
-          {/* Notifications & Calendar Integration */}
-          <div className="space-y-3 border-t border-border pt-3">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Bell className="h-4 w-4 text-primary" />
-                <div>
-                  <p className="text-xs font-semibold text-foreground">Dose Reminder Notification</p>
-                  <p className="text-[11px] text-muted-foreground">Daily notification during regimen</p>
+              <div className="grid grid-cols-2 gap-2 text-[11px]">
+                <div className="p-2 rounded-lg bg-background border border-border/60">
+                  <span className="text-muted-foreground block text-[10px] uppercase font-bold">
+                    Start Dosing
+                  </span>
+                  <span className="font-semibold text-foreground">{calculatedStart}</span>
+                  <span className="block text-[10px] text-muted-foreground">
+                    ({activeDrugInfo.daysBefore} day{activeDrugInfo.daysBefore > 1 ? "s" : ""} prior)
+                  </span>
+                </div>
+                <div className="p-2 rounded-lg bg-background border border-border/60">
+                  <span className="text-muted-foreground block text-[10px] uppercase font-bold">
+                    Final Terminal Dose
+                  </span>
+                  <span className="font-bold text-emerald-600">{calculatedEnd}</span>
+                  <span className="block text-[10px] text-muted-foreground">
+                    ({activeDrugInfo.daysAfter} days post-travel)
+                  </span>
                 </div>
               </div>
-              <input
-                type="checkbox"
-                checked={reminderEnabled}
-                onChange={(e) => setReminderEnabled(e.target.checked)}
-                className="h-4 w-4 rounded border-border text-primary focus:ring-primary cursor-pointer"
-              />
             </div>
+          )}
 
-            {reminderEnabled && (
-              <div className="flex items-center justify-between pl-6">
-                <span className="text-xs text-muted-foreground">Reminder Time:</span>
-                <input
-                  type="time"
-                  value={reminderTime}
-                  onChange={(e) => setReminderTime(e.target.value)}
-                  className="rounded-lg border border-border bg-background px-2.5 py-1 text-xs text-foreground focus:border-primary"
-                />
-              </div>
-            )}
-
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Calendar className="h-4 w-4 text-primary" />
-                <div>
-                  <p className="text-xs font-semibold text-foreground">Include in .ICS Calendar Export</p>
-                  <p className="text-[11px] text-muted-foreground">Syncs regimen alerts directly to phone/Google Calendar</p>
-                </div>
-              </div>
-              <input
-                type="checkbox"
-                checked={calendarSynced}
-                onChange={(e) => setCalendarSynced(e.target.checked)}
-                className="h-4 w-4 rounded border-border text-primary focus:ring-primary cursor-pointer"
-              />
+          {error && (
+            <div className="p-3 rounded-xl border border-destructive/30 bg-destructive/5 flex items-center gap-2 text-xs text-destructive">
+              <AlertCircle className="h-4 w-4 shrink-0" />
+              <span>{error}</span>
             </div>
+          )}
+
+          {/* Clinical Advisory Notice */}
+          <div className="p-2.5 rounded-lg border border-border bg-muted/20 text-[11px] text-muted-foreground leading-relaxed flex items-start gap-2">
+            <ShieldCheck className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+            <span>
+              Antimalarial tablets require consultation with a licensed physician or travel-health
+              clinic to match your medical history and local drug resistance.
+            </span>
           </div>
 
-          {/* Action Buttons */}
-          <div className="flex items-center justify-end gap-2.5 border-t border-border pt-4">
-            <button
+          {/* Footer Actions */}
+          <div className="flex items-center justify-end gap-2 pt-2 border-t border-border">
+            <Button
               type="button"
+              variant="outline"
               onClick={onClose}
-              className="px-4 py-2 text-xs font-semibold rounded-lg border border-border text-foreground hover:bg-muted cursor-pointer"
+              disabled={isSaving}
+              className="rounded-xl px-4 text-xs cursor-pointer"
             >
               Cancel
-            </button>
-            <button
+            </Button>
+            <Button
               type="submit"
-              disabled={isSubmitting}
-              className="px-4 py-2 text-xs font-semibold rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors cursor-pointer"
+              disabled={isSaving}
+              className="rounded-xl px-4 text-xs font-semibold cursor-pointer shadow-xs"
             >
-              {isSubmitting ? "Saving Plan..." : existingPlan ? "Update Plan" : "Save to Trip Hub"}
-            </button>
+              {isSaving ? "Saving..." : "Save Regimen"}
+            </Button>
           </div>
         </form>
       </div>
