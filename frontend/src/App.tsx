@@ -23,11 +23,9 @@ import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { AdminRoute } from "@/components/AdminRoute";
 import { AdminLayout } from "@/layouts/AdminLayout";
 import AdminDashboardPage from "@/pages/admin/AdminDashboardPage";
-import {
-  AdminDestinationsPlaceholder,
-  AdminStoriesPlaceholder,
-  AdminSourcesPlaceholder,
-} from "@/pages/admin/AdminPlaceholderPages";
+import AdminDestinationsPage from "@/pages/admin/AdminDestinationsPage";
+import AdminStoriesPage from "@/pages/admin/AdminStoriesPage";
+import AdminSourcesPage from "@/pages/admin/AdminSourcesPage";
 
 // Route wrapper providing the left sidebar for user dashboard views
 function DashboardLayoutWrapper() {
@@ -51,11 +49,12 @@ export default function App() {
         <Route path="/stories" element={<StoriesPage />} />
         <Route path="/stories/:id" element={<StoryDetailPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/admin-login" element={<Navigate to="/admin" replace />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
 
-        {/* User Dashboard Hub & Trip Management (All share the Left Sidebar) */}
+        {/* User Dashboard Hub & Trip Management */}
         <Route
           element={
             <ProtectedRoute>
@@ -68,6 +67,7 @@ export default function App() {
           <Route path="/account/trips" element={<TripsPage />} />
           <Route path="/account" element={<AccountPage />} />
           <Route path="/trip/create" element={<TripCreatePage />} />
+          <Route path="/trips/create" element={<Navigate to="/trip/create" replace />} />
           <Route path="/trip/:id" element={<TripDetailPage />} />
           <Route path="/trips/:id" element={<Navigate to="/trip/:id" replace />} />
         </Route>
@@ -86,9 +86,9 @@ export default function App() {
         }
       >
         <Route index element={<AdminDashboardPage />} />
-        <Route path="destinations" element={<AdminDestinationsPlaceholder />} />
-        <Route path="stories" element={<AdminStoriesPlaceholder />} />
-        <Route path="sources" element={<AdminSourcesPlaceholder />} />
+        <Route path="destinations" element={<AdminDestinationsPage />} />
+        <Route path="stories" element={<AdminStoriesPage />} />
+        <Route path="sources" element={<AdminSourcesPage />} />
       </Route>
     </Routes>
   );

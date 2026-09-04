@@ -1,10 +1,15 @@
+// backend/src/server.ts
 import { createApp } from "./app";
 import { connectDatabase } from "./config/db";
 import { env } from "./config/env";
 import { logger } from "./utils/logger";
+import { startReminderScheduler } from "./jobs/reminderCron";
 
 async function main() {
   await connectDatabase();
+
+  // Initialize the background cron scheduler for due email reminders
+  startReminderScheduler();
 
   const app = createApp();
 

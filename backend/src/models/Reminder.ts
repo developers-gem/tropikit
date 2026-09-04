@@ -1,3 +1,4 @@
+// backend/src/models/Reminder.ts
 import { Schema, model, type InferSchemaType } from "mongoose";
 
 export const REMINDER_TYPES = [
@@ -21,14 +22,17 @@ const ReminderSchema = new Schema(
     userId: { type: Schema.Types.ObjectId, ref: "User", required: true, index: true },
     type: { type: String, enum: REMINDER_TYPES, required: true },
     label: { type: String, required: true },
-    scheduledFor: { type: Date, required: true },
+    scheduledFor: { type: Date, required: true, index: true },
     timezone: { type: String, required: true, default: "UTC" },
     source: { type: String, enum: ["malaria-plan", "timeline", "manual"], default: "timeline" },
+    sent: { type: Boolean, default: false, index: true },
+    sentAt: { type: Date },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
 ReminderSchema.index({ tripId: 1, scheduledFor: 1 });
+ReminderSchema.index({ sent: 1, scheduledFor: 1 });
 
 export type ReminderDoc = InferSchemaType<typeof ReminderSchema>;
 export const Reminder = model("Reminder", ReminderSchema);

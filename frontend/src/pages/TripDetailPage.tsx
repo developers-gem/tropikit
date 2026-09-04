@@ -1,4 +1,5 @@
 // frontend/src/pages/TripDetailPage.tsx
+import { generateTripICS, triggerCalendarDownload } from "@/utils/calendarGenerator";
 import { useState, useEffect } from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
@@ -270,17 +271,49 @@ export default function TripDetailPage() {
     saveMutation.mutate(next);
   };
 
-  const handleDownloadCalendar = async () => {
-    try {
-      setDownloadingCal(true);
-      await downloadTripCalendar(id!, destination?.slug || "trip");
-    } catch (err: any) {
-      alert(err.message || "Failed to download calendar.");
-    } finally {
-      setDownloadingCal(false);
-    }
-  };
+  // const handleDownloadCalendar = async () => {
+  //   try {
+  //     setDownloadingCal(true);
+  //     await downloadTripCalendar(id!, destination?.slug || "trip");
+  //   } catch (err: any) {
+  //     alert(err.message || "Failed to download calendar.");
+  //   } finally {
+  //     setDownloadingCal(false);
+  //   }
+  // };
+const handleDownloadCalendar = async () => {
+  try {
+    setDownloadingCal(true);
 
+    // Build complete Malaria Dosing config if a plan exists
+    let malariaConfig = null;
+    if (malariaPlan && malariaTimeline) {
+      malariaConfig = {
+        drugName: String(activeMedication || "Antimalarial").replace(/-/g, " "),
+        startDate: malariaTimeline.startDate,
+        endDate: malariaTimeline.finalDoseDate,
+        frequency: malariaTimeline.frequency as "daily" | "weekly",
+        destinationName: destination?.name || "Tropical Zone",
+        notes: "Complete all terminal doses after returning.",
+      };
+    }
+
+    const icsContent = generateTripICS({
+      tripId: trip._id || id!,
+      destinationName: destination?.name || "Trip",
+      departureDate: trip.departureDate,
+      returnDate: trip.returnDate,
+      malariaPlan: malariaConfig,
+      vaccines: vaccineList.map((v: any) => v.name || v.disease || String(v)),
+    });
+
+    triggerCalendarDownload(icsContent, `tropikit-${destination?.slug || "trip"}-schedule.ics`);
+  } catch (err: any) {
+    alert(err.message || "Failed to generate calendar file.");
+  } finally {
+    setDownloadingCal(false);
+  }
+};
   const handleDeletePlan = async () => {
     if (confirm("Are you sure you want to remove the malaria plan from this trip?")) {
       await deleteMalariaMutation.mutateAsync();

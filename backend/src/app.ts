@@ -7,7 +7,7 @@ import rateLimit from "express-rate-limit";
 import { env } from "./config/env";
 import apiRouter from "./routes";
 import { errorHandler, notFoundHandler } from "./middleware/errorHandler";
-
+import cronRoutes from "./routes/cron.routes"; // Check spelling: cron.routes.ts vs cron.rotues.ts
 export function createApp() {
   const app = express();
 
@@ -63,7 +63,7 @@ export function createApp() {
   app.use("/api/v1/auth/reset-password", passwordResetLimiter);
 
   app.use("/api/v1", apiRouter);
-
+  app.use("/api/v1/cron", cronRoutes);
   app.use(notFoundHandler);
   app.use(errorHandler);
 
